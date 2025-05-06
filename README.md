@@ -1,6 +1,6 @@
-# NyxCode x 0x6ick File Manager
+ NyxCode x 0x6ick File Manager
 
-![Banner](banner.png)
+![Banner](src/banner.png)
 
 <p align="center">
   <img src="https://img.shields.io/github/stars/6ickzone/NyxCode-x-0x6ick-File-Manager?color=orange&logo=github&style=for-the-badge">
