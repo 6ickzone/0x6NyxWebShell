@@ -219,6 +219,7 @@ if(isset($_GET['delete'])){
 }
 
 // Footer
-echo "<hr><footer><small>$title - <a href='https://0x6ick.zone.id' target='_blank' style='color:inherit;text-decoration:none;'>$author</a> | 2025</small></footer>";
+echo "<hr>";
+echo "<footer><small>$title - <a href='https://0x6ick.zone.id' target='_blank' style='color:inherit;text-decoration:none;'>$author</a> | 2025</small></footer>";
 echo "</body></html>";
 ?>
