@@ -132,6 +132,10 @@ if(isset($_SESSION['feature_output'])) { echo '<div class="section-box"><h3>Hasi
     font-family: 'Kelly Slab', cursive;
     font-size: 14px;
     color: white;
+    width: auto;
+    display: inline-block;
+    margin: 0;
+    padding: 0;
   }
   .server-info td {
     padding: 4px 10px;
@@ -144,7 +148,9 @@ if(isset($_SESSION['feature_output'])) { echo '<div class="section-box"><h3>Hasi
     color: <?php echo $theme_fg; ?>;
   }
 </style>
-<table class="server-info" style="margin-left: 20px;">
+
+<table class="server-info">
+ 
   <tr>
     <td class="label-icon"><i class='fa fa-user'></i> User / IP</td>
     <td>: <span class="value"><?php echo $_SERVER['REMOTE_ADDR']; ?></span></td>
