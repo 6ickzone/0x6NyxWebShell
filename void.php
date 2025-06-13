@@ -144,7 +144,7 @@ if(isset($_SESSION['feature_output'])) { echo '<div class="section-box"><h3>Hasi
     color: <?php echo $theme_fg; ?>;
   }
 </style>
-<table class="server-info">
+<table class="server-info" style="margin-left: 20px;">
   <tr>
     <td class="label-icon"><i class='fa fa-user'></i> User / IP</td>
     <td>: <span class="value"><?php echo $_SERVER['REMOTE_ADDR']; ?></span></td>
