@@ -21,7 +21,6 @@ Upload once, own forever.
 - ✅ **Mass deface mode** — hit multiple dirs in one click
 - ✅ **File upload** form — intuitive UI for drag & drop
 - ✅ **Built-in file manager** — rename, chmod, delete
-- ✅ **SEO-friendly branding** — for smarter indexing & disguise
 - ✅ **Footer with redirection** — points to 0x6ick.zone.id
 
 ---
