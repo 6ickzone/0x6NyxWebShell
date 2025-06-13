@@ -118,7 +118,7 @@ if(isset($_POST['curl_download'])) { $url = $_POST['url']; $filename = sanitizeF
 <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
 <title><?php echo htmlspecialchars($title); ?></title>
 <style>
-body{font-family:'Kelly Slab',cursive;background-color:<?php echo $theme_bg;?>;color:<?php echo $theme_fg;?>;margin:0;padding:0;} a{font-size:1em;color:<?php echo $theme_link;?>;text-decoration:none;} a:hover{color:<?php echo $theme_link_hover;?>;} table{border-collapse:collapse;width:95%;max-width:1200px;margin:15px auto;} .td_home{border:2px solid <?php echo $theme_table_row_hover;?>;padding:7px;vertical-align:middle;} #content tr:hover{background-color:<?php echo $theme_table_row_hover;?>;} #content .first{background-color:<?php echo $theme_table_header_bg;?>;font-weight:bold;padding:10px;} input,select,textarea{border:1px solid <?php echo $theme_link_hover;?>;border-radius:5px;background:<?php echo $theme_input_bg;?>;color:<?php echo $theme_input_fg;?>;font-family:'Kelly Slab',cursive;padding:5px;box-sizing:border-box;} input[type="submit"]{background:<?php echo $theme_input_bg;?>;color:<?php echo $theme_fg;?>;border:2px solid <?php echo $theme_fg;?>;cursor:pointer;font-weight:bold;} input[type="submit"]:hover{background:<?php echo $theme_fg;?>;color:<?php echo $theme_input_bg;?>;} h1,h3{font-family:'Kelly Slab';text-align:center;} h1{font-size:35px;color:white;margin:20px 0 10px;} h3{color:<?php echo $theme_highlight;?>} .path-nav{margin:10px auto;width:95%;max-width:1200px;text-align:left;word-wrap:break-word;} .message{padding:10px;margin:10px auto;border-radius:5px;width:95%;max-width:1200px;font-weight:bold;text-align:center;} .message.success{background-color:<?php echo $message_success_color;?>;color:<?php echo $theme_bg;?>;} .message.error{background-color:<?php echo $message_error_color;?>;color:white;} .section-box{background-color:#1a1a1a;border:1px solid <?php echo $theme_border_color;?>;padding:15px;margin:20px auto;border-radius:8px;width:95%;max-width:1200px;} .main-menu{margin:20px auto;width:95%;max-width:1200px;text-align:center;padding:10px 0;border-top:1px solid <?php echo $theme_border_color;?>;border-bottom:1px solid <?php echo $theme_border_color;?>;} .main-menu div { margin-bottom: 8px; } .main-menu a{margin:0 8px;font-size:1.1em;white-space:nowrap;} pre{background-color:#0e0e0e;border:1px solid #444;padding:10px;overflow-x:auto;white-space:pre-wrap;word-wrap:break-word;color:#00FFD1;} code{background:#333;color:#FFB800;padding:2px 5px;border-radius:3px;} details summary {cursor:pointer; background:#222; padding:5px; border-radius:3px; margin-bottom: 5px;}
+body{font-family:'Orbitron',sans-serif;background-color:<?php echo $theme_bg;?>;color:<?php echo $theme_fg;?>;margin:0;padding:0;} a{font-size:1em;color:<?php echo $theme_link;?>;text-decoration:none;} a:hover{color:<?php echo $theme_link_hover;?>;} table{border-collapse:collapse;width:95%;max-width:1200px;margin:15px auto;} .td_home{border:2px solid <?php echo $theme_table_row_hover;?>;padding:7px;vertical-align:middle;} #content tr:hover{background-color:<?php echo $theme_table_row_hover;?>;} #content .first{background-color:<?php echo $theme_table_header_bg;?>;font-weight:bold;padding:10px;} input,select,textarea{border:1px solid <?php echo $theme_link_hover;?>;border-radius:5px;background:<?php echo $theme_input_bg;?>;color:<?php echo $theme_input_fg;?>;font-family:'Kelly Slab',cursive;padding:5px;box-sizing:border-box;} input[type="submit"]{background:<?php echo $theme_input_bg;?>;color:<?php echo $theme_fg;?>;border:2px solid <?php echo $theme_fg;?>;cursor:pointer;font-weight:bold;} input[type="submit"]:hover{background:<?php echo $theme_fg;?>;color:<?php echo $theme_input_bg;?>;} h1,h3{font-family:'Kelly Slab';text-align:center;} h1{font-size:35px;color:white;margin:20px 0 10px;} h3{color:<?php echo $theme_highlight;?>} .path-nav{margin:10px auto;width:95%;max-width:1200px;text-align:left;word-wrap:break-word;} .message{padding:10px;margin:10px auto;border-radius:5px;width:95%;max-width:1200px;font-weight:bold;text-align:center;} .message.success{background-color:<?php echo $message_success_color;?>;color:<?php echo $theme_bg;?>;} .message.error{background-color:<?php echo $message_error_color;?>;color:white;} .section-box{background-color:#1a1a1a;border:1px solid <?php echo $theme_border_color;?>;padding:15px;margin:20px auto;border-radius:8px;width:95%;max-width:1200px;} .main-menu{margin:20px auto;width:95%;max-width:1200px;text-align:center;padding:10px 0;border-top:1px solid <?php echo $theme_border_color;?>;border-bottom:1px solid <?php echo $theme_border_color;?>;} .main-menu div { margin-bottom: 8px; } .main-menu a{margin:0 8px;font-size:1.1em;white-space:nowrap;} pre{background-color:#0e0e0e;border:1px solid #444;padding:10px;overflow-x:auto;white-space:pre-wrap;word-wrap:break-word;color:#00FFD1;} code{background:#333;color:#FFB800;padding:2px 5px;border-radius:3px;} details summary {cursor:pointer; background:#222; padding:5px; border-radius:3px; margin-bottom: 5px;}
 </style>
 </head>
 <body>
@@ -144,40 +144,21 @@ if(isset($_SESSION['feature_output'])) { echo '<div class="section-box"><h3>Hasi
     color: <?php echo $theme_fg; ?>;
   }
 </style>
-
 <table class="server-info">
   <tr>
-    <td class="label-icon"><i class='fa fa-user'></i> IP Address</td>
+    <td class="label-icon"><i class='fa fa-user'></i> User / IP</td>
     <td>: <span class="value"><?php echo $_SERVER['REMOTE_ADDR']; ?></span></td>
   </tr>
   <tr>
-    <td class="label-icon"><i class='fa fa-desktop'></i> Host</td>
-    <td>: <span class="value"><?php echo gethostbyname($_SERVER['HTTP_HOST']); ?></span></td>
+    <td class="label-icon"><i class='fa fa-desktop'></i> Host / Server</td>
+    <td>: <span class="value"><?php echo gethostbyname($_SERVER['HTTP_HOST'])." / ".$_SERVER['SERVER_NAME']; ?></span></td>
   </tr>
-  <tr>
-    <td class="label-icon"><i class='fa fa-cog'></i> Web Server</td>
+<tr>
+<td class="label-icon"><i class='fa fa-cog'></i> Web Server</td>
     <td>: <span class="value"><?php echo $_SERVER['SERVER_SOFTWARE']; ?></span></td>
   </tr>
   <tr>
-    <td class="label-icon"><i class='fa fa-folder-open'></i> Current Path</td>
-    <td>: <span class="value"><?php echo getcwd(); ?></span></td>
-  </tr>
-  <tr>
-    <td class="label-icon"><i class='fa fa-database'></i> Disk Free</td>
-    <td>: <span class="value"><?php echo round(disk_free_space("/") / (1024 * 1024 * 1024), 2); ?> GB</span></td>
-  </tr>
-  <tr>
-    <td class="label-icon"><i class='fa fa-tachometer'></i> Load Avg</td>
-    <td>: <span class="value">
-      <?php
-        $load = sys_getloadavg();
-        echo implode(' ', array_map(fn($v) => number_format($v, 2), $load));
-      ?>
-    </span></td>
-  </tr>
-  <tr>
-    <td class="label-icon"><i class='fa fa-clock-o'></i> Server Time</td>
-    <td>: <span class="value"><?php echo date("d-m-Y H:i:s"); ?></span></td>
+    <td class="label-icon"><i class='fa fa-hdd-o'></i> System</td>
   </tr>
 </table>
 <div class="main-menu">
