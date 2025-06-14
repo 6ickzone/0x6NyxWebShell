@@ -286,6 +286,12 @@ if(isset($_GET['msg_text'])) {
     echo "<div class='message ".htmlspecialchars($_GET['msg_type'])."'>".htmlspecialchars($_GET['msg_text'])."</div>";
 }
 ?>
+<table class="system-info-table" width="95%" border="0" cellpadding="0" cellspacing="0" align="left">
+<tr><td>
+<font color='white'><i class='fa fa-user'></i> User / IP </font><td>: <font color='<?php echo $theme_fg; ?>'><?php echo $_SERVER['REMOTE_ADDR']; ?></font>
+<tr><td><font color='white'><i class='fa fa-desktop'></i> Host / Server </font><td>: <font color='<?php echo $theme_fg; ?>'><?php echo gethostbyname($_SERVER['HTTP_HOST'])." / ".$_SERVER['SERVER_NAME']; ?></font>
+<tr><td><font color='white'><i class='fa fa-hdd-o'></i> System </font><td>: <font color='<?php echo $theme_fg; ?>'><?php echo php_uname(); ?></font>
+</tr></td></table>
 <div class="main-menu">
     <a href="?path=<?php echo urlencode($path); ?>&action=cmd">Command</a> |
     <a href="?path=<?php echo urlencode($path); ?>&action=upload_form">Upload</a> |
