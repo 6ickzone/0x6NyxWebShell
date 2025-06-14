@@ -1,66 +1,69 @@
-# 0x6ickShell Manager
+# ⛩️ YamiRoot VoidGate
 
-<p align="center">
-  <img src="https://img.shields.io/github/stars/6ickzone/0x6ickShell-Manager?color=orange&logo=github&style=for-the-badge">
-  <img src="https://img.shields.io/github/forks/6ickzone/0x6ickShell-Manager?color=blue&logo=github&style=for-the-badge">
-  <img src="https://img.shields.io/badge/Made%20by-6ickZone-black?style=for-the-badge&logo=hackthebox">
-  <img src="https://img.shields.io/badge/Status-Active-brightgreen?style=for-the-badge&logo=vercel">
-</p>
+> ⚠️ WARNING: This tool is intended **strictly for educational and authorized research purposes only.**  
+> Misuse may be illegal and is not supported by the author.
 
----
-
-**0x6ickShell Manager** — A lightweight, stealthy, and powerful PHP shell manager tailored for post-exploitation, web pentesting, and surgical mass defacement.
-
-Built with the mindset of **solo operators**, but forged to look and work like a team.  
-Upload once, own forever.
+![Status](https://img.shields.io/badge/status-Active-purple)
+![License](https://img.shields.io/badge/license-MIT-yellow)
+![Built By](https://img.shields.io/badge/Built%20by-0x6ick-blueviolet)
 
 ---
 
-## 🚀 Features
-- ✅ **Single-file** PHP shell — easy to deploy, hard to trace
-- ✅ **Mass deface mode** — hit multiple dirs in one click
-- ✅ **File upload** form — intuitive UI for drag & drop
-- ✅ **Built-in file manager** — rename, chmod, delete
-- ✅ **Footer with redirection** — points to 0x6ick.zone.id
+## 🧠 About
+
+**VoidGate** is a lightweight PHP-based root file manager and command shell interface.  
+It features a custom dark-themed UI, minimalist controls, and includes network reconnaissance tools, system interaction, and optional mass manipulation utilities — all from one terminal-style panel.
 
 ---
 
-## 🎯 Use Cases
-- For red teamers needing **quick footholds**
-- Defacers who want **persistent access** + auto-deploy tools
-- Private **post-exploitation interface**
-- A hidden manager inside compromised CMS/uploads
-- Ideal for learning: study, test, and modify
+## 🔥 Features
+
+- 🖥️ Remote Command Execution (`shell_exec`)
+- 📁 Upload, Create, Zip, and File Actions
+- 🧨 Mass Defacement Tool (optional use)
+- 🪜 Symlink Tools for server traversal
+- 🔁 Reverse Shell Launcher
+- 🌐 Network Recon Tools:
+  - Port Scanner, Ping, DNS Lookup, WHOIS, Header Analyzer, cURL Client
 
 ---
 
-## ⚡ How to Use
-1. Upload `0x6ickshell.php` to target server.
-2. Visit: `https://target.site/0x6ickshell.php`
-3. Use File Upload or Mass Deface as needed.
-4. Check auto-redirect/footer to confirm integrity.
+## 🎨 Interface Preview
+
+
+![VoidGate Screenshot](/void.png)
 
 ---
 
-## 📥 Download
-> [Clone or Download on GitHub](https://github.com/6ickzone/0x6ickShell-Manager)
+## ⚙️ Requirements
+
+- Web server with PHP 5.6+
+- Required PHP functions:
+  - `shell_exec`, `scandir`, `file_get_contents`, `file_put_contents`, `unlink`, `mkdir`, `rmdir`, etc. **must not be disabled**
+- Writable permissions for full functionality
 
 ---
 
-## 🤝 Credits
-- 👨‍💻 Original code: **NyxCode**
-- 🐚 Rebranded, modded & maintained by: **6ickZone** (solo dev, team spirit)
-- 🔗 Follow updates at [0x6ick.zone.id](https://0x6ick.zone.id)
+## 🚀 How to Use
+
+1. Upload `void.php` to your server or target environment.
+2. Access it through your browser:target.com/void.php
+## ⚠️ Legal & Ethical Notice
+
+VoidGate is provided **for use in**:
+- Legal penetration testing scenarios
+- System recovery by administrators
+- Educational cybersecurity training
+
+You **must not** use this tool on systems you do not own or explicitly have permission to test.  
+**Unauthorized access is illegal. Use responsibly.**
 
 ---
 
-## ⚠️ Disclaimer
-This project is for **educational, ethical hacking, and authorized security testing only**.  
-We do **NOT** condone illegal activities. Use wisely, use responsibly.
+
+## 💻 Author
+
+Coded with 🖤 by [0x6ick](https://github.com/6ickzone)  
+Follow the journey of hacking, patching, and creating at [0x6ick Blog](https://0x6ick.blogspot.com)
 
 ---
-
-<p align="center">
-<b>by 0x6ick</b> — Hack, Patch, and Protect.  
-🔥 Read more at: <a href="https://0x6ick.zone.id">0x6sec</a>
-</p>
