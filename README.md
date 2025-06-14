@@ -20,9 +20,9 @@ It features a custom dark-themed UI, minimalist controls, and includes network r
 
 - 🖥️ Remote Command Execution (`shell_exec`)
 - 📁 Upload, Create, Zip, and File Actions
-- 🧨 Mass Defacement Tool (optional use)
+- 🧨 Mass Defacement Tool
 - 🪜 Symlink Tools for server traversal
-- 🔁 Reverse Shell Launcher
+- 🔁 Reverse Shell
 - 🌐 Network Recon Tools:
   - Port Scanner, Ping, DNS Lookup, WHOIS, Header Analyzer, cURL Client
 
