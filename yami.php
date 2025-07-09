@@ -1,6 +1,6 @@
 <?php
 /**
- * ヤミRoot VoidGateby 0x6ick x Nyx6st | Copyright 2025 by 6ickwhispers@gmail.com
+ * ヤミRoot VoidGate by 0x6ick x Nyx6st | Copyright 2025 by 6ickwhispers@gmail.com
  * --- mod by Nyx6st ---
  **/
 error_reporting(0); // Suppress all errors for stealth
@@ -14,19 +14,19 @@ ob_end_clean();
 // --- CONFIG ---
 $title = "ヤミRoot VoidGate";
 $author = "0x6ick";
-$theme_bg = "#0a0a0f"; // Dark violet-black cyber base
-$theme_fg = "#E0FF00"; // Neon yellow text
-$theme_highlight = "#FF00C8"; // Pink cyber glow
-$theme_link = "#00FFF7"; // Electric cyan
-$theme_link_hover = "#FF00A0"; // Pink on hover
-$theme_border_color = "#7D00FF"; // Neon purple border
-$theme_table_header_bg = "#1a0025"; // Dark purple-ish header
-$theme_table_row_hover = "#330033"; // Deep glitch violet
-$theme_input_bg = "#120024"; // Dark form input bg
-$theme_input_fg = "#00FFB2"; // Neon greenish-cyan input text
-$font_family = "'Orbitron', sans-serif"; // Futuristic mecha font
-$message_success_color = "#39FF14"; // Bright lime green
-$message_error_color = "#FF0033"; // Neon blood red
+$theme_bg = "#0a0a0f";
+$theme_fg = "#E0FF00";
+$theme_highlight = "#FF00C8";
+$theme_link = "#00FFF7";
+$theme_link_hover = "#FF00A0";
+$theme_border_color = "#7D00FF";
+$theme_table_header_bg = "#1a0025";
+$theme_table_row_hover = "#330033";
+$theme_input_bg = "#120024";
+$theme_input_fg = "#00FFB2";
+$font_family = "'Orbitron', sans-serif";
+$message_success_color = "#39FF14";
+$message_error_color = "#FF0033";
 
 // --- FUNCTIONS ---
 function sanitizeFilename($filename) {
