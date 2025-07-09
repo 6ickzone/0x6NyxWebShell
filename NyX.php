@@ -39,8 +39,8 @@ echo "<style>
   input, submit { background: #222; color: aqua; border: 1px solid aqua; padding: 5px; }
 </style>";
 
-echo "<h2>NyxCode in the Shell - File Manager</h2>";
-echo "<p>© NyxCode X 0x6ick</p>";
+echo "<h2>NyxCode in the Shell</h2>";
+echo "<p>©NyX6st</p>";
 echo "<p>Path: $path</p>";
 
 echo '<table>'; 
