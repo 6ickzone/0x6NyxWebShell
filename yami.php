@@ -1,6 +1,6 @@
 <?php
 /**
- * ヤミRoot VoidGate by 0x6ick x Nyx6st | Copyright 2025 by 6ickwhispers@gmail.com
+ * ヤミRoot VoidGate by 0x6ick x Nyx6st | Copyright 2025 by t.me/Yungx6ick
  * --- mod by Nyx6st ---
  **/
 error_reporting(0); // Suppress all errors for stealth
