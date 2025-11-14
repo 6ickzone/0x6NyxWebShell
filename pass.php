@@ -142,7 +142,7 @@ if (!isset($_SESSION[$sessionKey])) {
 ?>
 <?php
 /**
- * 6ickZoneShell Manager by 0x6ick x Nyx6st | Copyright 2025 by t.me/Yungx6ick
+ * ヤミRoot Series by 0x6ick x Nyx6st | Copyright 2025 by t.me/Yungx6ick
  * --- RE-ORGANIZED MENU VERSION by Nyx6st ---
  * All features integrated, with new menu layout and network tools.
  **/
