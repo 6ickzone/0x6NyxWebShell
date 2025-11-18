@@ -24,7 +24,7 @@ VoidGate lets you handle key system tasks right from your browser:
 * **🌐 Network Analysis:** Built-in tools like Port Scanner, Ping, WHOIS, DNS Lookup, and cURL Client.
 * **🪜 Traversal:** Symlink tools to navigate the server file system.
 
-[VoidGate Screenshot](/void.png)
+![VoidGate Screenshot](/void.png)
 
 ---
 
