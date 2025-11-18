@@ -1,4 +1,4 @@
-#  YamiRoot1337 | Tools Helper Suite
+#  Tools Helper
 
 > **Disclaimer:** This dedicated suite of tools is intended strictly for **Cybersecurity Educational Research** and post-exploitation testing in controlled lab environments.
 
@@ -6,7 +6,7 @@
 
 ##  Integrated Tools for Ethical Research
 
-### 1. YamiRoot1337 | Net
+### 1. ヤミRootヤ | Net
 **(Network Reconnaissance & Diagnostics)**
 
 | Detail | Description |
