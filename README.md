@@ -1,7 +1,6 @@
 # ⛩️ YamiRoot VoidGate
 
-> ⚠️ WARNING: This tool is intended **strictly for educational and authorized research purposes only.**  
-> Misuse may be illegal and is not supported by the author.
+> ⚠️ **IMPORTANT WARNING:** This tool is built **strictly for authorized educational research and legal penetration testing.** Using it on systems you don't own is illegal and completely unsupported by the author.
 
 ![Status](https://img.shields.io/badge/status-Active-purple)
 ![License](https://img.shields.io/badge/license-MIT-yellow)
@@ -9,61 +8,59 @@
 
 ---
 
-## 🧠 About
+## 💡 Quick Overview
 
-**VoidGate** is a lightweight PHP-based root file manager and command shell interface.  
-It features a custom dark-themed UI, minimalist controls, and includes network reconnaissance tools, system interaction, and optional mass manipulation utilities — all from one terminal-style panel.
-
----
-
-## 🔥 Features
-
-- 🖥️ Remote Command Execution (`shell_exec`)
-- 📁 Upload, Create, Zip, and File Actions
-- 🧨 Mass Defacement Tool
-- 🪜 Symlink Tools for server traversal
-- 🔁 Reverse Shell
-- 🌐 Network Recon Tools:
-  - Port Scanner, Ping, DNS Lookup, WHOIS, Header Analyzer, cURL Client
+**VoidGate** is a lightweight PHP-based root file manager and command shell designed for system interaction and post-exploitation research. It gives you a clean, terminal-style panel with a custom dark UI (our signature "calm glow" theme) to manage files and run commands efficiently.
 
 ---
 
-## 🎨 Interface Preview
+## ✨ Core Functionality
 
+VoidGate lets you handle key system tasks right from your browser:
 
-![VoidGate Screenshot](/void.png)
+* **🖥️ Command Execution:** Full remote command support via `shell_exec`.
+* **📁 File Management:** Upload, create, zip, and manage files easily.
+* **🧨 Mass Operations:** Includes optional **Mass Defacement** tools.
+* **🌐 Network Analysis:** Built-in tools like Port Scanner, Ping, WHOIS, DNS Lookup, and cURL Client.
+* **🪜 Traversal:** Symlink tools to navigate the server file system.
+
+[VoidGate Screenshot](/void.png)
+
+---
+
+## 📂 Project Structure and Detailed Documentation
+
+This repository is divided into two main subfolders, each with its own specific `README.md` for in-depth instructions:
+
+| Folder | Content Focus | Where to find details |
+| :--- | :--- | :--- |
+| **`YamiRoot_Series`** | Contains the various versions of VoidGate (DX, Mini, Bypass) and their unique features. | [Go to YamiRoot_Series/README.md](YamiRoot_Series/README.md) |
+| **`tools_helper`** | Houses specialized post-exploitation modules like Mass File Utilities, SMTP Tester, and advanced networking tools. | [Go to tools_helper/README.md](tools_helper/README.md) |
 
 ---
 
 ## ⚙️ Requirements
 
-- Web server with PHP 5.6+
-- Required PHP functions:
-  - `shell_exec`, `scandir`, `file_get_contents`, `file_put_contents`, `unlink`, `mkdir`, `rmdir`, etc. **must not be disabled**
-- Writable permissions for full functionality
+* A web server running **PHP 5.6+**.
+* Crucial PHP functions (like `shell_exec`, `scandir`, etc.) **must not be disabled** for full functionality.
 
 ---
 
-## 🚀 How to Use
+## 🚀 Get Started
 
-1. Upload `void.php` to your server or target environment.
-2. Access it through your browser:target.com/void.php
-## ⚠️ Legal & Ethical Notice
-
-VoidGate is provided **for use in**:
-- Legal penetration testing scenarios
-- System recovery by administrators
-- Educational cybersecurity training
-
-You **must not** use this tool on systems you do not own or explicitly have permission to test.  
-**Unauthorized access is illegal. Use responsibly.**
+1.  Upload **`void.php`** to your target environment.
+2.  Access it via your browser: `http://target.com/void.php`
 
 ---
 
+## 🔒 Legal and Ethical Use
 
-## 💻 Author
+Use VoidGate only where you have explicit, legal permission. This tool is for learning and authorized testing. **Use Responsibly.**
 
-Coded with 🖤 by [0x6ick](https://github.com/6ickzone)  
-Follow the journey of hacking, patching, and creating at [0x6ick Blog](https://0x6ick.blogspot.com)
+---
+
+## 👤 Author
+
+Coded with 🖤 by [0x6ick](https://github.com/6ickzone)
 
 ---
