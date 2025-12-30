@@ -30,13 +30,27 @@ VoidGate lets you handle key system tasks right from your browser:
 
 ## 📂 Project Structure and Detailed Documentation
 
-This repository is divided into two main subfolders, each with its own specific `README.md` for in-depth instructions:
+This repository is divided into three main subfolders, each with its own specific `README.md` for in-depth instructions:
 
 | Folder | Content Focus | Where to find details |
 | :--- | :--- | :--- |
-| **`YamiRoot_Series`** | Contains the various versions of VoidGate (DX, Mini, Bypass) and their unique features. | [Go to YamiRoot_Series/README.md](YamiRoot_Series/README.md) |
-| **`tools_helper`** | Houses specialized post-exploitation modules like Mass File Utilities, SMTP Tester, and advanced networking tools. | [Go to tools_helper/README.md](tools_helper/README.md) |
+| **`YamiRoot_Series`** | Contains the various versions of VoidGate (DX, Mini, Bypass) and their unique features. | [Go to YamiRoot_Series/README.md](./YamiRoot_Series/README.md) |
+| **`Encoders`** | Houses the **KCK PolyGen** polymorphic builder. Use this to generate unique, encrypted signatures for your scripts. | [Go to Encoders/README.md](./Encoders/README.md) |
+| **`tools_helper`** | Houses specialized post-exploitation modules like Mass File Utilities, SMTP Tester, and advanced networking tools. | [Go to tools_helper/README.md](./tools_helper/README.md) |
 
+---
+
+## 🛠️ Featured Tool: KCK PolyGen
+
+The latest addition to this repo is the **KCK PolyGen** (located in `/Encoders/`). 
+
+It is a polymorphic engine that helps researchers understand how malware evades static analysis (AV/EDR). It randomizes:
+- Class & Function names.
+- Internal variable signatures.
+- XOR encryption keys.
+- Logic flow within the stub.
+
+> **Note:** For maximum stealth during security assessments, it is recommended to use the tools in the `Encoders` folder to generate a fresh, randomized version of the shells found in `YamiRoot_Series`.
 ---
 
 ## ⚙️ Requirements
