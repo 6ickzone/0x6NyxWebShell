@@ -12,7 +12,7 @@ header('Content-Type: text/html; charset=UTF-8');
 ob_end_clean();
 
 // --- CONFIG ---
-$title = "ヤミRoot VoidGate";
+$title = "ヤミRoot Mini Shell";
 $author = "0x6ick";
 $theme_bg = "#0a0a0f";
 $theme_fg = "#E0FF00";
