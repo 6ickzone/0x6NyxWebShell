@@ -63,6 +63,25 @@ This tool features techniques illustrating **Defense Evasion** with a focus on c
 * **File Ops:** Zip/Extract, Mass Delete (New), Rename, CHMOD, Edit, and Create file/directory.
 * **Mass Deface:** Supports recursive and flat modes.
 
+### 5. YR_catalyst.php
+**(New)**
+
+| Module | Functionality |
+| :--- | :--- |
+| **Mass Uploader** | mass upload; file(s) automatically propagate to every subdirectory. |
+| **AES-Crypto** | Encrypts files using `AES-128-CBC`. |
+| **Decryptor Gen** | Generates Decryptor `decrypt.php`. |
+| **Breadcrumb** | Full filesystem navigation (Root/Up/Down) for precise targeting. |
+| **Self-Destruct** | Instant removal of the script and traces via the "Want to kill me?". |
+
+#### ⚙️ Technical Highlights
+* **Recursive Engine:** Built on `RecursiveDirectoryIterator` to handle massive directories without hitting PHP memory limits.
+* **Double-Lock Security:** Both uploading and decryption processes are protected by a shared `AUTH_KEY`.
+* **Signature Validation:** Uses a `6ickzone:` header to identify processed files and prevent double encryption.
+* **Underground UI:** Optimized with a "Trash Polka" aesthetic (High-contrast White/Black/Red) for professional research environments.
+
+---
+
 ---
 
 ## 🔗 Connect
